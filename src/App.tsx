@@ -5,9 +5,10 @@ import Search from './components/Search';
 import { getLargestCitiesInfo, getCityFromAPI } from './helpers';
 
 
-function App() {
+const App = () => {
   const [fetching, setFetching] = useState(false);
   const [weatherInfo, setWeatherInfo] = useState();
+  const [favoritesMap, setFavoritesMap] = useState<any>({});
   const history = useHistory();
 
   useEffect(() => {
@@ -36,15 +37,6 @@ function App() {
     });
   }, [history]);
 
-  
-
-  const handleNetworkStatus = () => {
-
-    if(!navigator.onLine){
-      alert('You are offline')
-    }
-  }
-
   useEffect(() => {
     window.addEventListener('online', handleNetworkStatus);
     window.addEventListener('offline', handleNetworkStatus);
@@ -54,6 +46,18 @@ function App() {
       window.removeEventListener('offline', handleNetworkStatus);
     }
   }, []);
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoritesMap') || '{}');
+    setFavoritesMap(favorites);
+  }, [])
+
+  const handleNetworkStatus = () => {
+      if(!navigator.onLine){
+        alert('You are offline')
+      }
+    }
+
 
   if (fetching) {
     return <h1>Loading...</h1>
@@ -68,10 +72,34 @@ function App() {
     setWeatherInfo(filteredInfo)
   }
 
+  const handleFavoriteClick = (cityDetails: any) => {
+    let latestFavorites = { ...favoritesMap }
+    if (favoritesMap[cityDetails.name]) {
+      delete latestFavorites[cityDetails.name]
+    } else {
+      latestFavorites[cityDetails.name] = cityDetails;
+    }
+    const stringifiedFavorites = JSON.stringify(latestFavorites);
+    localStorage.setItem('favoritesMap', stringifiedFavorites);
+    setFavoritesMap(latestFavorites);
+  }
+
   return (
     <div className="App">
       <Search />
-      <LargestCities cities={weatherInfo} onRemoveItem={handleRemove}/>
+      <div> Favorites: 
+      {Object.entries(favoritesMap).sort((first,second) => {
+        return first[0].localeCompare(second[0]);
+      }).map((entry: any) => {
+        return <p>{entry[1].name}</p>
+      })}
+      </div>
+      <LargestCities
+        cities={weatherInfo || []}
+        onRemoveItem={handleRemove}
+        onFavoriteClick={handleFavoriteClick}
+        favoritesMap={favoritesMap}
+      />
     </div>
   );
 }

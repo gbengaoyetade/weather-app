@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { getCityFromAPI } from '../helpers';
 
+
 const Search = () => {
   const [searchInput, setSearchInput] = useState('');
-  const [searchResult, setSearchResult] = useState();
+  const [searchResult, setSearchResult] = useState<any>();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -16,7 +17,13 @@ const Search = () => {
   }
 
   const handleChange = (event: any) => {
-    setSearchInput(event.target.value);
+    const userInput = event.target.value;
+
+    if (!userInput) {
+      setSearchResult(null)
+    }
+  
+    setSearchInput(userInput);
   }
 
   const renderSearchResult = () => {

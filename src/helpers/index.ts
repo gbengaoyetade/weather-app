@@ -41,6 +41,10 @@ export const getCityFromAPI = async (query: queryParams) => {
   }
 }
 
+export const getIconURL = (iconId: string): string => {
+  return `https://openweathermap.org/img/wn/${iconId}@2x.png`;
+}
+
 const _getLargestCities = (cities: Array<any>) => {
   return cities.map((city) => city.data.name)
 }
