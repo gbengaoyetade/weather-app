@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import LargestCities from './components/LargestCities';
 import Search from './components/Search';
 import { getLargestCitiesInfo, getCityFromAPI } from './helpers';
+import FavoriteButton from './components/FavoriteButton';
 
 
 const App = () => {
@@ -91,7 +92,14 @@ const App = () => {
       {Object.entries(favoritesMap).sort((first,second) => {
         return first[0].localeCompare(second[0]);
       }).map((entry: any) => {
-        return <p>{entry[1].name}</p>
+        return <p>
+          {entry[1].name}
+           <FavoriteButton
+            city={entry[1]}
+            onFavoriteClick={handleFavoriteClick}
+            favoritesMap={favoritesMap}
+          />
+        </p>
       })}
       </div>
       <LargestCities
