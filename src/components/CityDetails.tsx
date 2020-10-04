@@ -8,7 +8,7 @@ const CityDetails = () => {
 
   const { cityName } = useParams();
   const storedNotes = localStorage.getItem(cityName) || '';
-  const userCurrentCity = JSON.parse(localStorage.getItem('userCurrentCity') || '');
+  const userCurrentCity = JSON.parse(localStorage.getItem('userCurrentCity') || '{}');
   const [notes, setNotes] = useState(storedNotes);
   
   const cityDetails = getCityFromStorage(cityName);
@@ -52,12 +52,12 @@ const CityDetails = () => {
   }
 
   return (
-    <>
+    <div className="city-details">
       <Link to="/">Go back</Link>
       <p>City Details {cityName}</p>
       
       {getCommentSection()}
-    </>
+    </div>
   )
 };
 

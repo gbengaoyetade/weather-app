@@ -4,6 +4,7 @@ import LargestCities from './components/LargestCities';
 import Search from './components/Search';
 import { getLargestCitiesInfo, getCityFromAPI } from './helpers';
 import FavoriteButton from './components/FavoriteButton';
+import './App.css';
 
 
 const App = () => {
