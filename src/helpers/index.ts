@@ -1,12 +1,12 @@
 import axios from 'axios';
-
+import { largestCities } from '../constants';
 
 interface queryParams {
   q?: string,
   lat?: number,
   lon?: number,
 }
-const cities = ['Tokyo', 'Delhi', 'Shanghai', 'Sao Paulo', 'Mexico City', 'Dhaka', 'Cairo', 'Beijing', 'Mumbai', 'Osaka', 'Karachi', 'Chongqing', 'Istanbul', 'Buenos Aires', 'Kolkata'];
+
 const apiKey = process.env.REACT_APP_API_KEY;
 
 const _citiesInfo = JSON.parse(localStorage.getItem('largestCitiesInfo') || '[]');
@@ -21,7 +21,7 @@ export const getLargestCitiesInfo = async () => {
   
   // if user does not have any weather info in storage, 
   // we fetch the weather info for predetermined largest cities in the world
-  const sortedCities = cities.sort((first, second) => {
+  const sortedCities = largestCities.sort((first, second) => {
     return first.localeCompare(second);
   })
 
