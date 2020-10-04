@@ -4,12 +4,13 @@ import LargestCities from './components/LargestCities';
 import Search from './components/Search';
 import { getLargestCitiesInfo, getCityFromAPI } from './helpers';
 import FavoriteButton from './components/FavoriteButton';
-import './App.css';
+import { WeatherInfo } from './types';
+import './App.scss';
 
 
 const App = () => {
   const [fetching, setFetching] = useState(false);
-  const [weatherInfo, setWeatherInfo] = useState();
+  const [weatherInfo, setWeatherInfo] = useState<WeatherInfo[] | null>();
   const [favoritesMap, setFavoritesMap] = useState<any>({});
   const history = useHistory();
 
@@ -66,12 +67,15 @@ const App = () => {
   }
 
   const handleRemove = (cityInfo: any) => {
-    const filteredInfo = weatherInfo.filter((info: any) => {
-      return info.data.name !== cityInfo.name;
-    });
+    if (weatherInfo) {
+      const filteredInfo = weatherInfo.filter((info) => {
+        return info.data.name !== cityInfo.name;
+      });
 
-    localStorage.setItem('largestCitiesInfo', JSON.stringify(filteredInfo))
-    setWeatherInfo(filteredInfo)
+      localStorage.setItem('largestCitiesInfo', JSON.stringify(filteredInfo))
+      setWeatherInfo(filteredInfo);
+    }
+    
   }
 
   const handleFavoriteClick = (cityDetails: any) => {
@@ -87,7 +91,7 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <div className="app">
       <Search />
       <div> Favorites: 
       {Object.entries(favoritesMap).sort((first,second) => {
@@ -95,7 +99,7 @@ const App = () => {
       }).map((entry: any) => {
         return <p>
           {entry[1].name}
-           <FavoriteButton
+          <FavoriteButton
             city={entry[1]}
             onFavoriteClick={handleFavoriteClick}
             favoritesMap={favoritesMap}
@@ -108,7 +112,7 @@ const App = () => {
         onRemoveItem={handleRemove}
         onFavoriteClick={handleFavoriteClick}
         favoritesMap={favoritesMap}
-      />
+        />
     </div>
   );
 }

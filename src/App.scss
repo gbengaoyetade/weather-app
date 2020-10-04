@@ -1,8 +1,21 @@
 body {
-  background-color: #f6f6f9;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-size: 1rem;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  width: 100%;
+  max-width: 960px;
+  padding: 20px;
 }
 
 .city-list {
@@ -13,6 +26,37 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    
+    align-items: center;
+    margin: 0 0 5px 0;
+    background-color: #5bb3ff;
+    border-radius: 5px;
+    padding: 5px;
   }
+
+  li:hover {
+    box-shadow: #fff;
+  }
+}
+
+.city-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+}
+.temperature {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.aligned-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

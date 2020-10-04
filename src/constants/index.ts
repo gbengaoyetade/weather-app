@@ -1,4 +1,4 @@
-export const contriesMap = {
+export const countriesMap = {
   AF: 'Afghanistan',
   AX: 'Åland Islands',
   AL: 'Albania',
