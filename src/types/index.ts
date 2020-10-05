@@ -57,3 +57,7 @@ const countryCode = [
 ] as const
 
 type CountryCode = typeof countryCode[number]
+
+export interface FavoritesMap {
+  [key: string]: CityDetails
+}

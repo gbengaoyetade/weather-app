@@ -3,6 +3,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
 }
 
 #root {
@@ -28,7 +29,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin: 0 0 5px 0;
-    background-color: #5bb3ff;
+    background: linear-gradient(2deg, #317fa7, #29a1dc);
     border-radius: 5px;
     padding: 5px;
   }
@@ -42,7 +43,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
+  width: 75%;
+  cursor: pointer;
+  color: #fff;
 
   img {
     width: 50px;
@@ -59,4 +62,20 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.app-button {
+  background: transparent;
+  border: none;
+  height: 30px;
+  width: 30px;
+  font-size: 1.2rem;
+  color: inherit;
+  &:focus {
+    border: 1px solid #fff;
+  }
+}
+
+.bold-text {
+  font-weight: 700;
 }

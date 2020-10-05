@@ -9,7 +9,7 @@ const Search = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const response = await getCityFromAPI({ q: searchInput })
-    
+    console.log(response)
     if (response) {
       setSearchResult(response.data)
     }
@@ -45,16 +45,14 @@ const Search = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="cities-search">Search cities:</label>
         <input
           type="search"
           id="cities-search"
-          name=""
+          placeholder="Search cities "
           value={searchInput}
           onChange={handleChange}
           aria-label="Search city weather information"
         />
-
         <button>Search</button>
       </form>
       {renderSearchResult()}
