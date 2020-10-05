@@ -21,7 +21,7 @@ const FavoriteButton = (props: FavoriteProps) => {
   return (
     <button
       className="app-button"
-      onClick={() => onFavoriteClick(city)}
+      onClick={() => onFavoriteClick({ data: city })}
       style={{color}}
     >
       <i className={`fa ${iconName}`} aria-hidden="true"></i>

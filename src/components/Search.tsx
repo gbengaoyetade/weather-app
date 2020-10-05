@@ -9,7 +9,7 @@ const Search = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const response = await getCityFromAPI({ q: searchInput })
-    console.log(response)
+
     if (response) {
       setSearchResult(response.data)
     }

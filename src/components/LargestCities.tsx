@@ -24,6 +24,7 @@ const LargestCities = (props: LargestCitiesProps) => {
           onFavoriteClick={onFavoriteClick}
           favoritesMap={favoritesMap}
           city={data}
+          key={data.name}
         />
       );
     })}
