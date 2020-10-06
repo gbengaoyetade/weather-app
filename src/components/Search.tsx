@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getCityFromAPI, getIconURL } from '../helpers';
+import '../styles/search.scss';
 
 
 const Search = () => {
@@ -46,6 +47,7 @@ const Search = () => {
       const weatherDescription = searchResult.weather[0].description
       return (
         <div className="search-result">
+          <p className="search-title">{searchResult.name} Weather</p>
           <div className="aligned-flex">
           <div className="search-result-details">
             <img src={getIconURL(searchResult.weather[0].icon)} alt={weatherDescription} />
