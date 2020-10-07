@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { largestCities } from '../constants';
+import { FavoritesMap } from '../types';
 
 interface queryParams {
   q?: string,
@@ -43,6 +44,11 @@ export const getCityFromAPI = async (query: queryParams) => {
 
 export const getIconURL = (iconId: string): string => {
   return `https://openweathermap.org/img/wn/${iconId}@2x.png`;
+}
+
+export const saveFavorites = (favorites: FavoritesMap) => {
+  const stringifiedFavorites = JSON.stringify(favorites);
+  localStorage.setItem('favorites', stringifiedFavorites);
 }
 
 const _getLargestCities = (cities: Array<any>) => {

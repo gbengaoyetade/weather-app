@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { CityDetails, FavoritesMap } from '../types';
+import { CityDetails } from '../types';
 import { countriesMap } from '../constants';
 import { getIconURL } from '../helpers';
 import FavoriteButton from './FavoriteButton';
@@ -10,13 +10,11 @@ import FavoriteButton from './FavoriteButton';
 interface CityListItemProps {
   city: CityDetails
   onRemoveItem: Function
-  favoritesMap: FavoritesMap
-  onFavoriteClick: Function
 }
 
 const CityListItem = (props: CityListItemProps) => {
   const history = useHistory();
-  const { city, onRemoveItem, favoritesMap, onFavoriteClick } = props;
+  const { city, onRemoveItem } = props;
 
   const handleCityClick = (city: string) => {
     history.push(`/${city}/details`);
@@ -39,14 +37,10 @@ const CityListItem = (props: CityListItemProps) => {
         </div>
       </div>
       <div className="">
-        <button onClick={() => onRemoveItem(city)} className="app-button">
+        <button onClick={() => onRemoveItem(city.name)} className="app-button">
           <i className="fa fa-trash" aria-hidden="true"></i>
         </button>
-        <FavoriteButton
-          city={city}
-          onFavoriteClick={onFavoriteClick}
-          favoritesMap={favoritesMap}
-        />
+        <FavoriteButton cityName={city.name} />
       </div>
     </li>
   );

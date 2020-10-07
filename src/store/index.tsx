@@ -1,11 +1,38 @@
-import { createContext, useReducer } from 'react';
-import reducer from '../store/reducer';
+import React, { createContext, useReducer } from 'react';
+import { FavoritesMap, WeatherInfo } from '../types';
+import { weatherInfoReducer, favoritesReducer } from './reducers';
 
+interface InitialStateType {
+	favorites: FavoritesMap
+	weatherInfo: WeatherInfo[]
+}
 
-export const AppContext = createContext({});
+const initialState  = {
+	favorites: {},
+	weatherInfo: []
+}
 
+const AppContext = createContext<{
+    state: InitialStateType;
+    dispatch: React.Dispatch<any>;
+  }>({
+    state: initialState,
+    dispatch: () => null
+  });
 
-const [state, dispatch] = useReducer(reducer, {hello: 'hi'}) 
+const mainReducer = (state: InitialStateType, action: any) => ({
+  weatherInfo: weatherInfoReducer(state.weatherInfo, action),
+  favorites: favoritesReducer(state.favorites, action)
+});
 
+const AppProvider: React.FC = ({ children }) => {
+  const [state, dispatch] = useReducer(mainReducer, initialState);
 
-export const store = { state, dispatch };
+  return (
+      <AppContext.Provider value={{state, dispatch}}>
+      {children}
+      </AppContext.Provider>
+  )
+}
+  
+  export { AppContext, AppProvider };

@@ -1,16 +1,14 @@
 import React from 'react';
-import { FavoritesMap, WeatherInfo } from '../types';
+import { WeatherInfo } from '../types';
 import  CityListItem from './CityListItem';
 
 interface LargestCitiesProps {
   cities: WeatherInfo[],
   onRemoveItem: Function,
-  favoritesMap: FavoritesMap,
-  onFavoriteClick: Function
 }
 
 const LargestCities = (props: LargestCitiesProps) => {
-  const { cities, onRemoveItem, onFavoriteClick, favoritesMap } = props;
+  const { cities, onRemoveItem } = props;
   
 
   if (!cities) return null;
@@ -21,8 +19,6 @@ const LargestCities = (props: LargestCitiesProps) => {
       return (
         <CityListItem
           onRemoveItem={onRemoveItem}
-          onFavoriteClick={onFavoriteClick}
-          favoritesMap={favoritesMap}
           city={data}
           key={data.name}
         />

@@ -74,6 +74,8 @@ body {
   width: 30px;
   font-size: 1.2rem;
   color: inherit;
+  cursor: pointer;
+  
   &:focus {
     border: 1px solid #fff;
   }
