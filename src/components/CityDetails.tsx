@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getCityFromStorage } from '../helpers';
-
+import '../styles/cityDetails.scss';
 const CityDetails = () => {
   const [notesEditable, setNotesEditable] = useState(false);
 
 
   const { cityName } = useParams();
   const storedNotes = localStorage.getItem(cityName) || '';
-  const userCurrentCity = JSON.parse(localStorage.getItem('userCurrentCity') || '');
+  const userCurrentCity = JSON.parse(localStorage.getItem('userCurrentCity') || '{}');
   const [notes, setNotes] = useState(storedNotes);
   
   const cityDetails = getCityFromStorage(cityName);
 
   if (userCurrentCity?.name === cityName) {
     return <p>We have your details</p>
-  }
-  if (!cityDetails) {
-    return <p>City not found</p>;
   }
 
   const handleSave = (event: any) => {
@@ -30,7 +27,22 @@ const CityDetails = () => {
     setNotes(event.target.value)
   }
 
+  const handleCancelClick = () => {
+    setNotesEditable(false)
+    setNotes('')
+  }
+
+  const getCityDetails = () => {
+    if (!cityDetails) {
+      return <p>City not found</p>;
+    }
+    return <p>City Details {cityName}</p>
+  }
   const getCommentSection = () => {
+    if (!cityDetails){
+      return null;
+    }
+
     if (notesEditable) {
       return (
         <>
@@ -38,7 +50,7 @@ const CityDetails = () => {
             <textarea value={notes} onChange={handleCommentChange}></textarea>
           </form>
            <button onClick={handleSave}>Save</button>
-          <button onClick={() => setNotesEditable(false)}>Cancel</button>
+          <button onClick={handleCancelClick}>Cancel</button>
         </>
       )
     }
@@ -52,12 +64,11 @@ const CityDetails = () => {
   }
 
   return (
-    <>
-      <Link to="/">Go back</Link>
-      <p>City Details {cityName}</p>
-      
+    <div className="city-details-wrapper app">
+      <Link to="/"> Go Back</Link>
+      {getCityDetails()}
       {getCommentSection()}
-    </>
+    </div>
   )
 };
 

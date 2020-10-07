@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import LargestCities from './components/LargestCities';
 import Search from './components/Search';
 import { getLargestCitiesInfo, getCityFromAPI } from './helpers';
-import FavoriteButton from './components/FavoriteButton';
+import { AppContext } from './store';
+import { ADD_FAVORITE, ADD_WEATHER_INFO, REMOVE_WEATHER_INFO } from './constants';
+import './App.scss';
 
 
 const App = () => {
   const [fetching, setFetching] = useState(false);
-  const [weatherInfo, setWeatherInfo] = useState();
-  const [favoritesMap, setFavoritesMap] = useState<any>({});
+  const { state, dispatch } = useContext(AppContext);
   const history = useHistory();
 
   useEffect(() => {
-
     const fetchData = async () => {
-
       setFetching(true)
       await getLargestCitiesInfo();
       setFetching(false)
-      const citiesInfo = JSON.parse(localStorage.getItem('largestCitiesInfo') || '[]')
-      setWeatherInfo(citiesInfo)
+      const citiesInfo = JSON.parse(localStorage.getItem('largestCitiesInfo') || '[]');
+      dispatch({
+        type: ADD_WEATHER_INFO,
+        weatherInfo: citiesInfo
+      })
     }
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(async (data) => {
@@ -49,64 +51,42 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem('favoritesMap') || '{}');
-    setFavoritesMap(favorites);
-  }, [])
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '{}');
+    dispatch({ type: ADD_FAVORITE, favoriteItem: favorites })
+  }, [dispatch])
 
   const handleNetworkStatus = () => {
-      if(!navigator.onLine){
-        alert('You are offline')
-      }
+    if(!navigator.onLine){
+      alert('You are offline')
     }
-
+  }
 
   if (fetching) {
     return <h1>Loading...</h1>
   }
 
-  const handleRemove = (cityInfo: any) => {
-    const filteredInfo = weatherInfo.filter((info: any) => {
-      return info.data.name !== cityInfo.name;
-    });
-
-    localStorage.setItem('largestCitiesInfo', JSON.stringify(filteredInfo))
-    setWeatherInfo(filteredInfo)
+  const handleRemove = (cityName: string) => {
+    dispatch({
+      type: REMOVE_WEATHER_INFO,
+      cityName
+    })
   }
 
-  const handleFavoriteClick = (cityDetails: any) => {
-    let latestFavorites = { ...favoritesMap }
-    if (favoritesMap[cityDetails.name]) {
-      delete latestFavorites[cityDetails.name]
-    } else {
-      latestFavorites[cityDetails.name] = cityDetails;
-    }
-    const stringifiedFavorites = JSON.stringify(latestFavorites);
-    localStorage.setItem('favoritesMap', stringifiedFavorites);
-    setFavoritesMap(latestFavorites);
-  }
+  const favoritesArray = Object.entries(state.favorites).sort((first, second) => {
+    return first[1].data.name.localeCompare(second[1].data.name)
+  }).map((entry) => entry[1]);
+
+  const sortedWeatherInfo = state.weatherInfo.sort((first, second) => {
+    return first.data.name.localeCompare(second.data.name);
+  })
+  const largestCitiesInfo = [...favoritesArray, ...sortedWeatherInfo];
 
   return (
-    <div className="App">
+    <div className="app">
       <Search />
-      <div> Favorites: 
-      {Object.entries(favoritesMap).sort((first,second) => {
-        return first[0].localeCompare(second[0]);
-      }).map((entry: any) => {
-        return <p>
-          {entry[1].name}
-           <FavoriteButton
-            city={entry[1]}
-            onFavoriteClick={handleFavoriteClick}
-            favoritesMap={favoritesMap}
-          />
-        </p>
-      })}
-      </div>
       <LargestCities
-        cities={weatherInfo || []}
+        cities={largestCitiesInfo}
         onRemoveItem={handleRemove}
-        onFavoriteClick={handleFavoriteClick}
-        favoritesMap={favoritesMap}
       />
     </div>
   );

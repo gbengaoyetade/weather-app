@@ -1,37 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { getIconURL } from '../helpers';
-import FavoriteButton from './FavoriteButton';
+import { WeatherInfo } from '../types';
+import  CityListItem from './CityListItem';
 
 interface LargestCitiesProps {
-  cities: Array<any>,
+  cities: WeatherInfo[],
   onRemoveItem: Function,
-  favoritesMap: any,
-  onFavoriteClick: Function
 }
 
 const LargestCities = (props: LargestCitiesProps) => {
-  const { cities, onRemoveItem, onFavoriteClick, favoritesMap} = props;
+  const { cities, onRemoveItem } = props;
+  
 
   if (!cities) return null;
-
-  return <ol>
-    {cities.map((city: any) => {
+  
+  return <ul className="city-list">
+    {cities.map((city: WeatherInfo) => {
       const { data } = city;
       return (
-        <li key={data.name}>
-          <Link to={`/${data.name}/details`}> {data.name}</Link>{Math.floor(data.main.temp)}&#8451;
-          <img src={getIconURL(data.weather[0].icon)} alt={data.weather[0].description} />
-          <button onClick={() => onRemoveItem(data)}>-</button>
-          <FavoriteButton
-            city={data}
-            onFavoriteClick={onFavoriteClick}
-            favoritesMap={favoritesMap}
-          />
-        </li>
+        <CityListItem
+          onRemoveItem={onRemoveItem}
+          city={data}
+          key={data.name}
+        />
       );
     })}
-    </ol>
+    </ul>
 }
 
 export default LargestCities;
