@@ -4,7 +4,7 @@ import LargestCities from './components/LargestCities';
 import Search from './components/Search';
 import { getLargestCitiesInfo, getCityFromAPI } from './helpers';
 import { AppContext } from './store';
-import { ADD_FAVORITE, ADD_WEATHER_INFO, REMOVE_WEATHER_INFO } from './constants';
+import { ADD_FAVORITE, ADD_WEATHER_INFO } from './constants';
 import './App.scss';
 
 
@@ -62,14 +62,7 @@ const App = () => {
   }
 
   if (fetching) {
-    return <h1>Loading...</h1>
-  }
-
-  const handleRemove = (cityName: string) => {
-    dispatch({
-      type: REMOVE_WEATHER_INFO,
-      cityName
-    })
+    return <img src="/loader.gif"  alt="loading indicator"/>
   }
 
   const favoritesArray = Object.entries(state.favorites).sort((first, second) => {
@@ -86,7 +79,6 @@ const App = () => {
       <Search />
       <LargestCities
         cities={largestCitiesInfo}
-        onRemoveItem={handleRemove}
       />
     </div>
   );

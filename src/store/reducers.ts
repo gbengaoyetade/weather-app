@@ -30,6 +30,7 @@ export const favoritesReducer = (state: FavoritesMap, action: any) => {
       delete stateCopy[action.cityName];
       saveFavorites(stateCopy);
       return stateCopy;
+
     default:
       return state
   }

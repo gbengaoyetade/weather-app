@@ -4,11 +4,10 @@ import  CityListItem from './CityListItem';
 
 interface LargestCitiesProps {
   cities: WeatherInfo[],
-  onRemoveItem: Function,
 }
 
 const LargestCities = (props: LargestCitiesProps) => {
-  const { cities, onRemoveItem } = props;
+  const { cities, } = props;
   
 
   if (!cities) return null;
@@ -18,7 +17,6 @@ const LargestCities = (props: LargestCitiesProps) => {
       const { data } = city;
       return (
         <CityListItem
-          onRemoveItem={onRemoveItem}
           city={data}
           key={data.name}
         />

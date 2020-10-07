@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getCityFromStorage } from '../helpers';
 import '../styles/cityDetails.scss';
+
 const CityDetails = () => {
   const [notesEditable, setNotesEditable] = useState(false);
-
 
   const { cityName } = useParams();
   const storedNotes = localStorage.getItem(cityName) || '';
