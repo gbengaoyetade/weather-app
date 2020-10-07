@@ -40,7 +40,7 @@ const CityListItem = (props: CityListItemProps) => {
         <button onClick={() => onRemoveItem(city.name)} className="app-button">
           <i className="fa fa-trash" aria-hidden="true"></i>
         </button>
-        <FavoriteButton cityName={city.name} />
+        <FavoriteButton cityDetails={city} />
       </div>
     </li>
   );

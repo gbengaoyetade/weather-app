@@ -36,8 +36,20 @@ const CityDetails = () => {
     if (!cityDetails) {
       return <p>City not found</p>;
     }
-    return <p>City Details {cityName}</p>
+    return (
+      <div>
+        <div className="details-header">
+          <p>{cityDetails.name}</p>
+          <p></p>
+        </div>
+        <div className="city-details-card">
+
+        </div>
+        City Details {cityName}
+      </div>
+    )
   }
+
   const getCommentSection = () => {
     if (!cityDetails){
       return null;

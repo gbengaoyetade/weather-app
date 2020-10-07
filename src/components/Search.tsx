@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getCityFromAPI, getIconURL } from '../helpers';
+import FavoriteButton from './FavoriteButton';
 import '../styles/search.scss';
 
 
@@ -20,6 +21,7 @@ const Search = () => {
     setIsLoading(false);
   
     if (response) {
+      localStorage.setItem('currentSearchItem', JSON.stringify(response))
       setSearchResult(response.data)
     } else {
       setFetchError('Your search returned no results.');
@@ -47,7 +49,10 @@ const Search = () => {
       const weatherDescription = searchResult.weather[0].description
       return (
         <div className="search-result">
-          <p className="search-title">{searchResult.name} Weather</p>
+          <p className="search-title">
+            <span>{searchResult.name} Weather</span>
+            <FavoriteButton cityDetails={searchResult} />
+          </p>
           <div className="aligned-flex">
           <div className="search-result-details">
             <img src={getIconURL(searchResult.weather[0].icon)} alt={weatherDescription} />

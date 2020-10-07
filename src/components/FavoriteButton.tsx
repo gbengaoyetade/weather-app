@@ -4,34 +4,39 @@ import {
   ADD_FAVORITE,
   REMOVE_FAVORITE,
   ADD_WEATHER_INFO,
-  REMOVE_WEATHER_INFO
+  REMOVE_WEATHER_INFO,
+  largestCities
 } from '../constants';
+import { CityDetails } from '../types';
 
 
 interface FavoriteProps {
-  cityName: string,
+  cityDetails: CityDetails 
 }
 
 const FavoriteButton = (props: FavoriteProps) => {
-  const { cityName } = props;
+  const { cityDetails } = props;
   const { state, dispatch } = useContext(AppContext);
 
   let iconName = 'fa-heart-o';
   let color = '#000';
   
-  if (state.favorites[cityName]) {
+  if (state.favorites[cityDetails.name]) {
     iconName = 'fa-heart';
     color = '#ec6e4d';
   }
 
   const hanldeClick = () => {
-    
-    if(state.favorites[cityName]){
+    const cityName = cityDetails.name;
+    const isOneOfLargestCities = largestCities.find((name) => name === cityName);
+  
+    if(state.favorites[cityName]) {
       dispatch({ type: REMOVE_FAVORITE, cityName });
-      dispatch({ type: ADD_WEATHER_INFO, weatherInfo: [state.favorites[cityName]] });
+      isOneOfLargestCities ?
+        dispatch({ type: ADD_WEATHER_INFO, weatherInfo: [{ data: cityDetails }] }) :
+        dispatch({ type: REMOVE_WEATHER_INFO, cityName });
     } else {
-      const cityDetails = state.weatherInfo.find((info) => info.data.name === cityName)
-      const favoriteItem = { [cityName]: cityDetails };
+      const favoriteItem = { [cityName]: { data: cityDetails } };
       dispatch({ type: ADD_FAVORITE, favoriteItem });
       dispatch({ type: REMOVE_WEATHER_INFO, cityName });
     }
