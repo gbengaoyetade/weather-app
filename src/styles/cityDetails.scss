@@ -1,5 +1,29 @@
 .city-details-wrapper {
   width: 100%;
+  margin-bottom: 20px;
+
+  textarea {
+    width: 100%;
+    max-width: 400px;
+    height: 120px;
+    background: #eee;
+    color: #000;
+    padding: 5px;
+    resize: none;
+    border-radius: 5px;
+    border: 1px solid #888;
+    font-size: 1.3rem;
+  }
+
+  a {
+    color: #317fa7;
+    text-decoration: none;
+    font-weight: 800;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 .details-header {
@@ -7,6 +31,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 130px;
+
+  p {
+    margin: 5px;
+  }
 }
 
 .city-details-card {
@@ -21,6 +50,7 @@
   box-shadow: 0 0 12px 0 rgba(0,0,0,.2);
   padding: 10px;
   height: 200px;
+  margin-bottom: 25px;
 
   p {
     margin: 0;
@@ -41,4 +71,59 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.details-list {
+  margin: 0;
+  padding: 0;
+  max-width: 400px;
+  width: 100%;
+
+  li {
+    list-style-type: none;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.city-name {
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.details-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notes-button {
+  margin-right: 5px;
+  background: #d0d0d0;
+  color: #000;
+  border: 1px solid transparent;
+  height: 30px;
+  border-radius: 5px;
+
+  &:hover {
+    border: 1px solid #888;
+  }
+}
+
+.notes {
+  width: 100%;
+  max-width: 400px;
+  background-color: #eee;
+  color: #333;
+  padding: 10px;
+  border-radius: 10px 5px 10px 5px;
+  word-wrap: break-word;
+}
+
+.bold {
+   font-weight: 800;
 }

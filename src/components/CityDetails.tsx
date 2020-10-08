@@ -43,9 +43,9 @@ const CityDetails = () => {
     const { data } = cityDetails;
     const weatherDescription = data.weather[0].description;
     return (
-      <div>
+      <div className="details-container">
         <div className="details-header">
-          <p>
+          <p className="city-name">
             {cityDetails.data.name}
           </p>
           <p>{getDateFromTime(data.sys.sunrise)}</p>
@@ -69,12 +69,12 @@ const CityDetails = () => {
         </div>
 
         <ul className="details-list">
-          <li><span>Max Temp:</span> <span>{data.main.temp_max}&#730;</span></li>
-          <li><span>Min Temp:</span> <span>{data.main.temp_min}&#730;</span></li>
-          <li><span>Humidity:</span> <span>{data.main.humidity}%</span></li>
-          <li><span>Pressure:</span> <span>{data.main.pressure} hPa</span></li>
-          <li><span>Wind Speed: </span> <span>{data.wind.speed} m/s</span></li>
-          <li><span>Wind Deg:</span> <span>{data.wind.deg}&#730;</span></li>
+          <li><span>Max Temp:</span> <span className="bold">{data.main.temp_max}&#730;</span></li>
+          <li><span>Min Temp:</span> <span className="bold">{data.main.temp_min}&#730;</span></li>
+          <li><span>Humidity:</span> <span className="bold">{data.main.humidity}%</span></li>
+          <li><span>Pressure:</span> <span className="bold">{data.main.pressure} hPa</span></li>
+          <li><span>Wind Speed: </span> <span className="bold">{data.wind.speed} m/s</span></li>
+          <li><span>Wind Deg:</span> <span className="bold">{data.wind.deg}&#730;</span></li>
         </ul>
       </div>
     )
@@ -82,7 +82,7 @@ const CityDetails = () => {
 
   return (
     <div className="city-details-wrapper app">
-      <Link to="/"> Go Back</Link>
+      <Link to="/">Go back</Link>
       {getCityDetails()}
       <Notes cityName={cityName} />
     </div>

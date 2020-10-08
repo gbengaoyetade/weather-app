@@ -46,10 +46,10 @@ const Notes = (props: {cityName: string}) => {
         <form>
           <textarea value={notes} onChange={handleCommentChange}></textarea>
         </form>
-          <button onClick={handleSave}>Save</button>
-          <button onClick={handleCancelClick}>Cancel</button>
+          <button className="notes-button" onClick={handleSave}>Save</button>
+          <button className="notes-button" onClick={handleCancelClick}>Cancel</button>
           {
-            cityNotes ? <button onClick={handleDelete}>Delete</button> : null
+            cityNotes ? <button className="notes-button" onClick={handleDelete}>Delete</button> : null
           }
           
       </>
@@ -58,8 +58,8 @@ const Notes = (props: {cityName: string}) => {
 
   return (
     <>
-      <p>{cityNotes}</p>
-      <button onClick={() => setNotesEditable(true)} >
+      { cityNotes ?  <p className="notes">{cityNotes}</p> : null }
+      <button className="notes-button" onClick={() => setNotesEditable(true)} >
         { cityNotes ? 'Edit' : 'Add Notes' }
       </button>
     </>

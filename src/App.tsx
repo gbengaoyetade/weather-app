@@ -65,6 +65,7 @@ const App = () => {
   return (
     <div className="app">
       <Search />
+      <p><i className="fas fa-long-arrow-alt-left"></i></p>
       <LargestCities
         cities={largestCitiesInfo}
       />
