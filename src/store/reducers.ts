@@ -1,6 +1,14 @@
-import { REMOVE_WEATHER_INFO, ADD_WEATHER_INFO, ADD_FAVORITE, REMOVE_FAVORITE } from '../constants';
-import { FavoritesMap, WeatherInfo } from '../types';
-import { saveFavorites } from '../helpers';
+import {
+  REMOVE_WEATHER_INFO,
+  ADD_WEATHER_INFO,
+  ADD_FAVORITE,
+  REMOVE_FAVORITE,
+  SET_LOADING,
+  SAVE_NOTES,
+  DELETE_NOTE
+} from '../constants';
+import { FavoritesMap, WeatherInfo, NotesType } from '../types';
+import { saveFavorites, saveNotes } from '../helpers';
 
 export const weatherInfoReducer = (state: WeatherInfo[], action: any) => {
   switch(action.type) {
@@ -30,7 +38,33 @@ export const favoritesReducer = (state: FavoritesMap, action: any) => {
       delete stateCopy[action.cityName];
       saveFavorites(stateCopy);
       return stateCopy;
+
     default:
       return state
+  }
+}
+
+export const loadingReducer = (state: Boolean, action:any) => {
+  if(action.type === SET_LOADING) {
+    return action.isLoading;
+  }
+  
+  return state;
+}
+
+export const notesReducer = (state: NotesType, action: any ) => {
+  switch(action.type) {
+    case SAVE_NOTES:
+      const newState = { ...state, ...action.notes };
+      saveNotes(newState)
+      return newState;
+
+    case DELETE_NOTE:
+      const stateCopy = { ...state };
+      delete stateCopy[action.cityName];
+      saveNotes(stateCopy);
+      return stateCopy;
+    default: 
+      return state; 
   }
 }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { largestCities } from '../constants';
-import { FavoritesMap } from '../types';
+import { FavoritesMap, NotesType, WeatherInfo } from '../types';
+export { default as usePopulateStore } from './populateStore';
 
 interface queryParams {
   q?: string,
@@ -22,14 +23,11 @@ export const getLargestCitiesInfo = async () => {
   
   // if user does not have any weather info in storage, 
   // we fetch the weather info for predetermined largest cities in the world
-  const sortedCities = largestCities.sort((first, second) => {
-    return first.localeCompare(second);
-  })
 
-  return await _fetchCurrentWeatherInfo(sortedCities);
+  return await _fetchCurrentWeatherInfo(largestCities);
 }
 
-export const getCityFromStorage = (cityName: string) => {
+export const getCityFromStorage = (cityName: string) :WeatherInfo => {
  return _citiesInfo.find((city: any) => city.data.name === cityName);
 }
 
@@ -51,6 +49,33 @@ export const saveFavorites = (favorites: FavoritesMap) => {
   localStorage.setItem('favorites', stringifiedFavorites);
 }
 
+export const getDateFromTime = (time: number): string => {
+  const date = new Date(time * 1000);
+  return date.toDateString();
+}
+
+export const getLocalTime = (time: number, timeZone: number): string => {
+  const date = new Date((time + timeZone) * 1000);
+  return date.toLocaleTimeString();
+}
+
+export const getFavorites = () => {
+  const favorites =  JSON.parse(localStorage.getItem('favorites') || '{}');
+  return favorites;
+}
+
+export const saveNotes  = (notes: NotesType) => {
+  localStorage.setItem('notes', JSON.stringify(notes));
+}
+
+export const getLargestCitesWeather = () => {
+  return JSON.parse(localStorage.getItem('largestCitiesInfo') || '[]');
+}
+
+export const getNotes = () => {
+  return JSON.parse(localStorage.getItem('notes') || '{}');
+}
+
 const _getLargestCities = (cities: Array<any>) => {
   return cities.map((city) => city.data.name)
 }
@@ -59,6 +84,13 @@ const _fetchCurrentWeatherInfo = async (cities: Array<string>) => {
   if (navigator.onLine) {
     const response = cities.map(async (city) => await getCityFromAPI({ q: city }) );
     const data = await Promise.all(response);
+
+    const someDataIsNull = data.some((value) => !value);
+  
+    if(someDataIsNull) {
+      return null;
+    }
+
     localStorage.setItem('largestCitiesInfo', JSON.stringify(data));
     return data;
   }

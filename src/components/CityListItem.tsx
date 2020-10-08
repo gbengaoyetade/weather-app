@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CityDetails } from '../types';
 import { countriesMap } from '../constants';
 import { getIconURL } from '../helpers';
 import FavoriteButton from './FavoriteButton';
-
+import { REMOVE_WEATHER_INFO, REMOVE_FAVORITE } from '../constants';
+import { AppContext } from '../store';
 
 
 interface CityListItemProps {
   city: CityDetails
-  onRemoveItem: Function
 }
 
 const CityListItem = (props: CityListItemProps) => {
+  const { dispatch } = useContext(AppContext);
   const history = useHistory();
-  const { city, onRemoveItem } = props;
+  const { city } = props;
 
   const handleCityClick = (city: string) => {
     history.push(`/${city}/details`);
+  }
+
+  const handleRemove = (cityName: string) => {
+    dispatch({ type: REMOVE_WEATHER_INFO, cityName })
+    dispatch({ type: REMOVE_FAVORITE, cityName })
   }
 
   return (
@@ -37,10 +43,10 @@ const CityListItem = (props: CityListItemProps) => {
         </div>
       </div>
       <div className="">
-        <button onClick={() => onRemoveItem(city.name)} className="app-button">
+        <button onClick={() => handleRemove(city.name)} className="app-button">
           <i className="fa fa-trash" aria-hidden="true"></i>
         </button>
-        <FavoriteButton cityName={city.name} />
+        <FavoriteButton cityDetails={city} />
       </div>
     </li>
   );
