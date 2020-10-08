@@ -9,10 +9,10 @@ import {
 import { AppContext } from '../store';
 import '../styles/cityDetails.scss';
 import { WeatherInfo } from '../types';
+import Notes from './Notes';
 
 const CityDetails = () => {
   const { state } = useContext(AppContext);
-  const [notesEditable, setNotesEditable] = useState(false);
   usePopulateStore();
 
   const { cityName } = useParams<{ cityName:string }>();
@@ -35,21 +35,6 @@ const CityDetails = () => {
     cityDetails = state.weatherInfo.find((info) => {
       return info.data.name === cityName;
     })
-  }
-
-  const handleSave = (event: any) => {
-    event.preventDefault();
-    localStorage.setItem(cityName, notes)
-    setNotesEditable(false);
-  }
-
-  const handleCommentChange = (event: any) => {
-    setNotes(event.target.value)
-  }
-
-  const handleCancelClick = () => {
-    setNotesEditable(false)
-    setNotes('')
   }
 
   const getCityDetails = () => {
@@ -90,35 +75,10 @@ const CityDetails = () => {
           <li><span>Min Temp:</span> <span>{data.main.temp_min}&#730;</span></li>
           <li><span>Humidity:</span> <span>{data.main.humidity}%</span></li>
           <li><span>Pressure:</span> <span>{data.main.pressure} hPa</span></li>
-          <li><span>Wind</span> Speed: <span>{data.wind.speed} m/s</span></li>
+          <li><span>Wind Speed: </span> <span>{data.wind.speed} m/s</span></li>
           <li><span>Wind Deg:</span> <span>{data.wind.deg}&#730;</span></li>
         </ul>
       </div>
-    )
-  }
-
-  const getCommentSection = () => {
-    if (!cityDetails){
-      return null;
-    }
-
-    if (notesEditable) {
-      return (
-        <>
-          <form>
-            <textarea value={notes} onChange={handleCommentChange}></textarea>
-          </form>
-           <button onClick={handleSave}>Save</button>
-          <button onClick={handleCancelClick}>Cancel</button>
-        </>
-      )
-    }
-
-    return (
-      <>
-        <p>{storedNotes}</p>
-        <button onClick={() => setNotesEditable(true)} >Edit</button>
-      </>
     )
   }
 
@@ -126,7 +86,7 @@ const CityDetails = () => {
     <div className="city-details-wrapper app">
       <Link to="/"> Go Back</Link>
       {getCityDetails()}
-      {getCommentSection()}
+      <Notes />
     </div>
   )
 };
