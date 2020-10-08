@@ -3,7 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import {
   getDateFromTime,
   getIconURL,
-  getLocalTime
+  getLocalTime,
+  usePopulateStore
 } from '../helpers';
 import { AppContext } from '../store';
 import '../styles/cityDetails.scss';
@@ -12,6 +13,7 @@ import { WeatherInfo } from '../types';
 const CityDetails = () => {
   const { state } = useContext(AppContext);
   const [notesEditable, setNotesEditable] = useState(false);
+  usePopulateStore();
 
   const { cityName } = useParams<{ cityName:string }>();
   const storedNotes = localStorage.getItem(cityName) || '';
@@ -19,6 +21,11 @@ const CityDetails = () => {
   const [notes, setNotes] = useState(storedNotes);
   
   let cityDetails : WeatherInfo | undefined = state.favorites[cityName];
+
+
+  if (state.isLoading) {
+    return <img src="/loader.gif"  alt="loading indicator"/>
+  }
 
   if (userCurrentCity?.data.name === cityName) {
     cityDetails = userCurrentCity;
@@ -49,15 +56,14 @@ const CityDetails = () => {
     if (!cityDetails) {
       return <p>City not found</p>;
     }
-    console.log(cityDetails)
+
     const { data } = cityDetails;
     const weatherDescription = data.weather[0].description;
     return (
       <div>
         <div className="details-header">
           <p>
-            <i className="fas fa-map-marker-alt"></i>
-            {/* {cityDetails.data.name} */}
+            {cityDetails.data.name}
           </p>
           <p>{getDateFromTime(data.sys.sunrise)}</p>
         </div>
@@ -79,7 +85,7 @@ const CityDetails = () => {
           </div>
         </div>
 
-        <ul>
+        <ul className="details-list">
           <li><span>Max Temp:</span> <span>{data.main.temp_max}&#730;</span></li>
           <li><span>Min Temp:</span> <span>{data.main.temp_min}&#730;</span></li>
           <li><span>Humidity:</span> <span>{data.main.humidity}%</span></li>

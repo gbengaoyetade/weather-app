@@ -252,3 +252,5 @@ export const ADD_WEATHER_INFO = 'ADD_WEATHER_INFO';
 
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+
+export const SET_LOADING = 'SET_LOADING';

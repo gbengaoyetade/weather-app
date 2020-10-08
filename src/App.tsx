@@ -1,32 +1,16 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import LargestCities from './components/LargestCities';
 import Search from './components/Search';
-import { getLargestCitiesInfo, getCityFromAPI } from './helpers';
+import { getCityFromAPI, usePopulateStore } from './helpers';
 import { AppContext } from './store';
-import { ADD_FAVORITE, ADD_WEATHER_INFO } from './constants';
+import { ADD_FAVORITE } from './constants';
 import './styles/app.scss';
 
 const App = () => {
-  const [fetching, setFetching] = useState(false);
   const { state, dispatch } = useContext(AppContext);
   const history = useHistory();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setFetching(true)
-      await getLargestCitiesInfo();
-      setFetching(false)
-      const citiesInfo = JSON.parse(localStorage.getItem('largestCitiesInfo') || '[]');
-      dispatch({
-        type: ADD_WEATHER_INFO,
-        weatherInfo: citiesInfo
-      })
-    }
-    if(!state.weatherInfo.length) {
-      fetchData(); 
-    }
-  }, [dispatch, state.weatherInfo.length]);
+  usePopulateStore();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(async (data) => {
@@ -39,7 +23,6 @@ const App = () => {
           localStorage.setItem('hasSeenCurrentCity', 'yes');
           history.push(`${response?.data.name}/details`);
         }
-
       }
     });
   }, [history]);
@@ -65,7 +48,7 @@ const App = () => {
     }
   }
 
-  if (fetching) {
+  if (state.isLoading) {
     return <img src="/loader.gif"  alt="loading indicator"/>
   }
 
@@ -76,6 +59,7 @@ const App = () => {
   const sortedWeatherInfo = state.weatherInfo.sort((first, second) => {
     return first.data.name.localeCompare(second.data.name);
   })
+
   const largestCitiesInfo = [...favoritesArray, ...sortedWeatherInfo];
 
   return (

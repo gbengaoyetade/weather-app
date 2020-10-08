@@ -1,4 +1,10 @@
-import { REMOVE_WEATHER_INFO, ADD_WEATHER_INFO, ADD_FAVORITE, REMOVE_FAVORITE } from '../constants';
+import {
+  REMOVE_WEATHER_INFO,
+  ADD_WEATHER_INFO,
+  ADD_FAVORITE,
+  REMOVE_FAVORITE,
+  SET_LOADING
+} from '../constants';
 import { FavoritesMap, WeatherInfo } from '../types';
 import { saveFavorites } from '../helpers';
 
@@ -34,4 +40,12 @@ export const favoritesReducer = (state: FavoritesMap, action: any) => {
     default:
       return state
   }
+}
+
+export const loadingReducer = (state: Boolean, action:any) => {
+  if(action.type === SET_LOADING) {
+    return action.isLoading;
+  }
+  
+  return state;
 }
