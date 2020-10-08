@@ -7,10 +7,13 @@ interface LargestCitiesProps {
 }
 
 const LargestCities = (props: LargestCitiesProps) => {
-  const { cities, } = props;
+  const { cities } = props;
   
-
-  if (!cities) return null;
+  if (!cities.length){
+    return (
+      <p className="error">No weather information to display.</p>
+    );
+  }
   
   return <ul className="city-list">
     {cities.map((city: WeatherInfo) => {

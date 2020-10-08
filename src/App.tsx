@@ -26,16 +26,20 @@ const App = () => {
     if(!state.weatherInfo.length) {
       fetchData(); 
     }
-  }, [dispatch]);
+  }, [dispatch, state.weatherInfo.length]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(async (data) => {
       if (!localStorage.getItem('hasSeenCurrentCity')) {
         const { coords } = data;
         const response = await getCityFromAPI({ lat: coords.latitude, lon: coords.longitude });
-        localStorage.setItem('userCurrentCity', JSON.stringify(response?.data));
-        localStorage.setItem('hasSeenCurrentCity', 'yes');
-        history.push(`${response?.data.name}/details`);
+        
+        if (response) {
+          localStorage.setItem('userCurrentCity', JSON.stringify(response?.data));
+          localStorage.setItem('hasSeenCurrentCity', 'yes');
+          history.push(`${response?.data.name}/details`);
+        }
+
       }
     });
   }, [history]);
