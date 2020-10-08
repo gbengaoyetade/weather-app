@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   getDateFromTime,
@@ -16,9 +16,7 @@ const CityDetails = () => {
   usePopulateStore();
 
   const { cityName } = useParams<{ cityName:string }>();
-  const storedNotes = localStorage.getItem(cityName) || '';
   const userCurrentCity = JSON.parse(localStorage.getItem('userCurrentCity') || '{}');
-  const [notes, setNotes] = useState(storedNotes);
   
   let cityDetails : WeatherInfo | undefined = state.favorites[cityName];
 
@@ -86,7 +84,7 @@ const CityDetails = () => {
     <div className="city-details-wrapper app">
       <Link to="/"> Go Back</Link>
       {getCityDetails()}
-      <Notes />
+      <Notes cityName={cityName} />
     </div>
   )
 };

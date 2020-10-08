@@ -3,10 +3,11 @@ import {
   ADD_WEATHER_INFO,
   ADD_FAVORITE,
   REMOVE_FAVORITE,
-  SET_LOADING
+  SET_LOADING,
+  SAVE_NOTES
 } from '../constants';
-import { FavoritesMap, WeatherInfo } from '../types';
-import { saveFavorites } from '../helpers';
+import { FavoritesMap, WeatherInfo, NotesType } from '../types';
+import { saveFavorites, saveNotes } from '../helpers';
 
 export const weatherInfoReducer = (state: WeatherInfo[], action: any) => {
   switch(action.type) {
@@ -47,5 +48,14 @@ export const loadingReducer = (state: Boolean, action:any) => {
     return action.isLoading;
   }
   
+  return state;
+}
+
+export const notesReducer = (state: NotesType, action: any ) => {
+  if(action.type === SAVE_NOTES) {
+    const newState = { ...state, ...action.notes };
+    saveNotes(newState)
+    return newState;
+  }
   return state;
 }

@@ -1,12 +1,25 @@
-import React, { useState} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../store';
+import { SAVE_NOTES } from '../constants';
 
-const Notes = () => {
-  const [notes, setNotes ] = useState('');
+
+const Notes = (props: {cityName: string}) => {
+  const { state, dispatch } = useContext(AppContext);
+  const { cityName } = props;
   const [notesEditable, setNotesEditable] = useState(false);
+  const [notes, setNotes] = useState('');
+
+  useEffect(() => {
+    setNotes(state.notes[cityName] || '')
+  }, [cityName, state.notes]);
 
   const handleSave = (event: any) => {
     event.preventDefault();
     setNotesEditable(false);
+    dispatch({
+      type: SAVE_NOTES,
+      notes: { [cityName]: notes }
+    })
   }
   
   const handleCommentChange = (event: any) => {
@@ -15,8 +28,9 @@ const Notes = () => {
 
   const handleCancelClick = () => {
     setNotesEditable(false)
-    setNotes('')
   }
+
+  const cityNotes = state.notes[cityName];
 
   if (notesEditable) {
     return (
@@ -32,8 +46,10 @@ const Notes = () => {
 
   return (
     <>
-      <p></p>
-      <button onClick={() => setNotesEditable(true)} >Edit</button>
+      <p>{cityNotes}</p>
+      <button onClick={() => setNotesEditable(true)} >
+        { cityNotes ? 'Edit' : 'Add Notes' }
+      </button>
     </>
   )
 }

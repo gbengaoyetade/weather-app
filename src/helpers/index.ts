@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { largestCities } from '../constants';
-import { FavoritesMap, WeatherInfo } from '../types';
+import { FavoritesMap, NotesType, WeatherInfo } from '../types';
 export { default as usePopulateStore } from './populateStore';
 
 interface queryParams {
@@ -62,6 +62,18 @@ export const getLocalTime = (time: number, timeZone: number): string => {
 export const getFavorites = () => {
   const favorites =  JSON.parse(localStorage.getItem('favorites') || '{}');
   return favorites;
+}
+
+export const saveNotes  = (notes: NotesType) => {
+  localStorage.setItem('notes', JSON.stringify(notes));
+}
+
+export const getLargestCitesWeather = () => {
+  return JSON.parse(localStorage.getItem('largestCitiesInfo') || '[]');
+}
+
+export const getNotes = () => {
+  return JSON.parse(localStorage.getItem('notes') || '{}');
 }
 
 const _getLargestCities = (cities: Array<any>) => {

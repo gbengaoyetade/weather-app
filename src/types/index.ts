@@ -61,3 +61,7 @@ type CountryCode = typeof countryCode[number]
 export interface FavoritesMap {
   [key: string]: WeatherInfo
 }
+
+export interface NotesType {
+  [key: string]: string
+}

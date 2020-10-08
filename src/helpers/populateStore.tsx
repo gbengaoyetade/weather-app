@@ -1,7 +1,17 @@
 import { useEffect, useContext } from 'react';
 import { AppContext } from '../store';
-import { getLargestCitiesInfo, getFavorites } from './index';
-import { ADD_WEATHER_INFO, SET_LOADING, ADD_FAVORITE  } from '../constants';
+import {
+  getLargestCitiesInfo,
+  getFavorites,
+  getLargestCitesWeather,
+  getNotes
+} from './index';
+import {
+  ADD_WEATHER_INFO,
+  SET_LOADING,
+  ADD_FAVORITE,
+  SAVE_NOTES
+} from '../constants';
 
 const usePopulateStore = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -20,7 +30,7 @@ const usePopulateStore = () => {
             isLoading: false
           });
   
-          const citiesInfo = JSON.parse(localStorage.getItem('largestCitiesInfo') || '[]');
+          const citiesInfo = getLargestCitesWeather();
           dispatch({
             type: ADD_WEATHER_INFO,
             weatherInfo: citiesInfo
@@ -29,6 +39,10 @@ const usePopulateStore = () => {
           const favorites = getFavorites();
 
           dispatch({ type: ADD_FAVORITE, favoriteItem: favorites });
+
+          const notes = getNotes();
+
+          dispatch({ type: SAVE_NOTES, notes })
         }
 
         if(!state.weatherInfo.length) {

@@ -1,21 +1,24 @@
-import React, { createContext, useReducer } from 'react';
-import { FavoritesMap, WeatherInfo } from '../types';
+import React, { createContext, useReducer, } from 'react';
+import { FavoritesMap, WeatherInfo, NotesType } from '../types';
 import {
   weatherInfoReducer,
   favoritesReducer,
-  loadingReducer
+  loadingReducer,
+  notesReducer
 } from './reducers';
 
 interface InitialStateType {
 	favorites: FavoritesMap
   weatherInfo: WeatherInfo[]
-  isLoading: Boolean
+  isLoading: Boolean,
+  notes: NotesType
 }
 
 const initialState  = {
 	favorites: {},
   weatherInfo: [],
-  isLoading: false
+  isLoading: false,
+  notes: {}
 }
 
 const AppContext = createContext<{
@@ -29,7 +32,8 @@ const AppContext = createContext<{
 const mainReducer = (state: InitialStateType, action: any) => ({
   weatherInfo: weatherInfoReducer(state.weatherInfo, action),
   favorites: favoritesReducer(state.favorites, action),
-  isLoading: loadingReducer(state.isLoading, action)
+  isLoading: loadingReducer(state.isLoading, action),
+  notes: notesReducer(state.notes, action)
 });
 
 const AppProvider: React.FC = ({ children }) => {
