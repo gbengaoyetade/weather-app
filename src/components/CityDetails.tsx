@@ -20,7 +20,7 @@ const CityDetails = () => {
   
   let cityDetails : WeatherInfo | undefined = state.favorites[cityName];
 
-  if (userCurrentCity?.name === cityName) {
+  if (userCurrentCity?.data.name === cityName) {
     cityDetails = userCurrentCity;
   }
 
@@ -57,7 +57,7 @@ const CityDetails = () => {
         <div className="details-header">
           <p>
             <i className="fas fa-map-marker-alt"></i>
-            {cityDetails.data.name}
+            {/* {cityDetails.data.name} */}
           </p>
           <p>{getDateFromTime(data.sys.sunrise)}</p>
         </div>

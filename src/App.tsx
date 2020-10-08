@@ -35,7 +35,7 @@ const App = () => {
         const response = await getCityFromAPI({ lat: coords.latitude, lon: coords.longitude });
         
         if (response) {
-          localStorage.setItem('userCurrentCity', JSON.stringify(response?.data));
+          localStorage.setItem('userCurrentCity', JSON.stringify(response));
           localStorage.setItem('hasSeenCurrentCity', 'yes');
           history.push(`${response?.data.name}/details`);
         }
