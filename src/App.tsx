@@ -5,7 +5,7 @@ import Search from './components/Search';
 import { getLargestCitiesInfo, getCityFromAPI } from './helpers';
 import { AppContext } from './store';
 import { ADD_FAVORITE, ADD_WEATHER_INFO } from './constants';
-import './App.scss';
+import './styles/app.scss';
 
 const App = () => {
   const [fetching, setFetching] = useState(false);
