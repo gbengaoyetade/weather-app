@@ -85,4 +85,8 @@ body {
   font-weight: 700;
 }
 
-
+.vertical-align {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
