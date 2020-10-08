@@ -256,3 +256,4 @@ export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
 export const SET_LOADING = 'SET_LOADING';
 
 export const SAVE_NOTES = 'SAVE_NOTES';
+export const DELETE_NOTE = 'DELETE_NOTE';

@@ -4,7 +4,8 @@ import {
   ADD_FAVORITE,
   REMOVE_FAVORITE,
   SET_LOADING,
-  SAVE_NOTES
+  SAVE_NOTES,
+  DELETE_NOTE
 } from '../constants';
 import { FavoritesMap, WeatherInfo, NotesType } from '../types';
 import { saveFavorites, saveNotes } from '../helpers';
@@ -52,10 +53,18 @@ export const loadingReducer = (state: Boolean, action:any) => {
 }
 
 export const notesReducer = (state: NotesType, action: any ) => {
-  if(action.type === SAVE_NOTES) {
-    const newState = { ...state, ...action.notes };
-    saveNotes(newState)
-    return newState;
+  switch(action.type) {
+    case SAVE_NOTES:
+      const newState = { ...state, ...action.notes };
+      saveNotes(newState)
+      return newState;
+
+    case DELETE_NOTE:
+      const stateCopy = { ...state };
+      delete stateCopy[action.cityName];
+      saveNotes(stateCopy);
+      return stateCopy;
+    default: 
+      return state; 
   }
-  return state;
 }
