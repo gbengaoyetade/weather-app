@@ -7,7 +7,6 @@ import { AppContext } from './store';
 import { ADD_FAVORITE, ADD_WEATHER_INFO } from './constants';
 import './App.scss';
 
-
 const App = () => {
   const [fetching, setFetching] = useState(false);
   const { state, dispatch } = useContext(AppContext);
@@ -24,8 +23,9 @@ const App = () => {
         weatherInfo: citiesInfo
       })
     }
-
-    fetchData();
+    if(!state.weatherInfo.length) {
+      fetchData(); 
+    }
   }, [dispatch]);
 
   useEffect(() => {
