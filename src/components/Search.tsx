@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { getCityFromAPI, getIconURL } from '../helpers';
 import FavoriteButton from './FavoriteButton';
+import { CityDetails } from '../types';
 import '../styles/search.scss';
 
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState('');
-  const [searchResult, setSearchResult] = useState<any>();
+  const [searchResult, setSearchResult] = useState<CityDetails | null>();
   const [isLoading, setIsLoading] = useState(false);
   const [fetchError, setFetchError] = useState('')
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     setFetchError('');
@@ -29,7 +30,7 @@ const Search = () => {
    
   }
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const userInput = event.target.value;
 
     if (!userInput) {

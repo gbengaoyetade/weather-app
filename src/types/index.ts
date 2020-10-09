@@ -65,3 +65,26 @@ export interface FavoritesMap {
 export interface NotesType {
   [key: string]: string
 }
+
+export interface FavoritesActionType {
+  type:string
+  favoriteItem: FavoritesMap
+  cityName: string
+}
+
+export interface LoadingActionType {
+  type: string,
+  isLoading: Boolean
+}
+
+export interface NotesActionType {
+  type: string,
+  notes?: NotesType
+  cityName: string
+}
+
+export interface WeatherInfoActionTypes {
+  type: string
+  cityName?: string
+  weatherInfo: WeatherInfo[]
+}

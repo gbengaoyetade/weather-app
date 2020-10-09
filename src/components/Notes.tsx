@@ -13,7 +13,7 @@ const Notes = (props: {cityName: string}) => {
     setNotes(state.notes[cityName] || '')
   }, [cityName, state.notes]);
 
-  const handleSave = (event: any) => {
+  const handleSave = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     setNotesEditable(false);
     dispatch({
@@ -22,7 +22,7 @@ const Notes = (props: {cityName: string}) => {
     });
   }
   
-  const handleCommentChange = (event: any) => {
+  const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNotes(event.target.value)
   }
 

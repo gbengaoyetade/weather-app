@@ -28,7 +28,7 @@ export const getLargestCitiesInfo = async () => {
 }
 
 export const getCityFromStorage = (cityName: string) :WeatherInfo => {
- return _citiesInfo.find((city: any) => city.data.name === cityName);
+ return _citiesInfo.find((city: WeatherInfo) => city.data.name === cityName);
 }
 
 export const getCityFromAPI = async (query: queryParams) => {
@@ -76,7 +76,7 @@ export const getNotes = () => {
   return JSON.parse(localStorage.getItem('notes') || '{}');
 }
 
-const _getLargestCities = (cities: Array<any>) => {
+const _getLargestCities = (cities: WeatherInfo[]) => {
   return cities.map((city) => city.data.name)
 }
 
