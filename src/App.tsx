@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import LargestCities from './components/LargestCities';
 import Search from './components/Search';
-import { getCityFromAPI, usePopulateStore } from './helpers';
+import { getCityFromAPI, usePopulateStore, useOfflineIndicator } from './helpers';
 import { AppContext } from './store';
 import { ADD_FAVORITE } from './constants';
 import './styles/app.scss';
@@ -10,7 +10,9 @@ import './styles/app.scss';
 const App = () => {
   const { state, dispatch } = useContext(AppContext);
   const history = useHistory();
+
   usePopulateStore();
+  useOfflineIndicator();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(async (data) => {
@@ -28,25 +30,9 @@ const App = () => {
   }, [history]);
 
   useEffect(() => {
-    window.addEventListener('online', handleNetworkStatus);
-    window.addEventListener('offline', handleNetworkStatus);
-
-    return () => {
-      window.removeEventListener('online', handleNetworkStatus);
-      window.removeEventListener('offline', handleNetworkStatus);
-    }
-  }, []);
-
-  useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favorites') || '{}');
     dispatch({ type: ADD_FAVORITE, favoriteItem: favorites })
   }, [dispatch])
-
-  const handleNetworkStatus = () => {
-    if(!navigator.onLine){
-      alert('You are offline')
-    }
-  }
 
   if (state.isLoading) {
     return <img src="/loader.gif"  alt="loading indicator"/>

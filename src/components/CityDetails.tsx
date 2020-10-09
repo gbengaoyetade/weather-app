@@ -7,6 +7,7 @@ import {
   usePopulateStore,
   getUserCurrentCity,
   getCurrentSearchItem,
+  useOfflineIndicator
 } from '../helpers';
 import { AppContext } from '../store';
 import '../styles/cityDetails.scss';
@@ -15,7 +16,9 @@ import Notes from './Notes';
 
 const CityDetails = () => {
   const { state } = useContext(AppContext);
+
   usePopulateStore();
+  useOfflineIndicator();
 
   const { cityName } = useParams<{ cityName:string }>();
   const userCurrentCity = getUserCurrentCity();

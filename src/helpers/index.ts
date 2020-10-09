@@ -2,6 +2,7 @@ import axios from 'axios';
 import { largestCities } from '../constants';
 import { FavoritesMap, NotesType, WeatherInfo } from '../types';
 export { default as usePopulateStore } from './populateStore';
+export { default as useOfflineIndicator } from './offlineIndicator';
 
 interface queryParams {
   q?: string,
