@@ -11,8 +11,8 @@ export interface CityDetails {
   sys: { type: number, id: number, country: CountryCode, sunrise: number, sunset: number }
   timezone: number
   visibility: number
-  weather: [{ id: number, main: string, description: string, icon: string }]
-  wind: { speed: number, deg: number, gust: number }
+  weather: { id: number, main: string, description: string, icon: string }[]
+  wind: { speed: number, deg: number, gust?: number }
 }
 
 export interface CityMain {
