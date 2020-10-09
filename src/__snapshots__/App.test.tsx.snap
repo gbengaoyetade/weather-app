@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should match snapshot 1`] = `
+<div>
+  <div
+    class="app"
+  >
+    <div
+      class="search-wrapper"
+    >
+      <form>
+        <input
+          aria-label="Search city weather information"
+          id="cities-search"
+          placeholder="Search cities"
+          type="search"
+          value=""
+        />
+        <button
+          data-testid="search-button"
+        >
+          <i
+            aria-hidden="true"
+            class="fa fa-search"
+          />
+        </button>
+      </form>
+    </div>
+    <div
+      class="search-result-wrapper"
+    >
+      
+    </div>
+    <p>
+      <i
+        class="fas fa-long-arrow-alt-left"
+      />
+    </p>
+    <p
+      class="error"
+    >
+      No weather information to display.
+    </p>
+  </div>
+</div>
+`;
