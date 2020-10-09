@@ -4,6 +4,8 @@ import CityDetails from '../CityDetails';
 import { initialStateMock } from '../../mocks';
 import { AppContext} from '../../store';
 
+Date.now = jest.fn(() => 1487076708000) 
+
 jest.mock('../Notes', () => jest.fn()
 .mockImplementation(() => <>**Notes**</>))
 
