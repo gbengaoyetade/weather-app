@@ -2,12 +2,12 @@ export interface CityDetails {
   base: string
   clouds: { all: number }
   cod: number
-  coor: { lon: number, lat: number }
+  coord: { lon: number, lat: number }
   dt: number
   id: number
   main: CityMain
   name: string
-  rain: { [key: string]: number }
+  rain?: { [key: string]: number }
   sys: { type: number, id: number, country: CountryCode, sunrise: number, sunset: number }
   timezone: number
   visibility: number
