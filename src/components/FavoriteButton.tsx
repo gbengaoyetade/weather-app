@@ -48,7 +48,7 @@ const FavoriteButton = (props: FavoriteProps) => {
       onClick={handleClick}
       style={{color}}
     >
-      <i className={`fa ${iconName}`} aria-hidden="true"></i>
+      <i data-testid="favorite-button" className={`fa ${iconName}`} aria-hidden="true"></i>
     </button>
   )
 
