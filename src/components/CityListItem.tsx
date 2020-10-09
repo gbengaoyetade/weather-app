@@ -16,7 +16,7 @@ const CityListItem = (props: CityListItemProps) => {
   const { dispatch } = useContext(AppContext);
   const history = useHistory();
   const { city } = props;
-
+  
   const handleCityClick = (city: string) => {
     history.push(`/${city}/details`);
   }
@@ -43,7 +43,11 @@ const CityListItem = (props: CityListItemProps) => {
         </div>
       </div>
       <div className="">
-        <button onClick={() => handleRemove(city.name)} className="app-button">
+        <button
+          onClick={() => handleRemove(city.name)}
+          className="app-button"
+          data-testid="delete-info"
+        >
           <i className="fa fa-trash" aria-hidden="true"></i>
         </button>
         <FavoriteButton cityDetails={city} />

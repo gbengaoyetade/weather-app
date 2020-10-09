@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavoriteButton should match snapshot 1`] = `
+<div>
+  <button
+    class="app-button"
+    style="color: rgb(0, 0, 0);"
+  >
+    <i
+      aria-hidden="true"
+      class="fa fa-heart-o"
+      data-testid="favorite-button"
+    />
+  </button>
+</div>
+`;
+
+exports[`FavoriteButton should match snapshot when cityName is a favorite 1`] = `
+<div>
+  <button
+    class="app-button"
+    style="color: rgb(236, 110, 77);"
+  >
+    <i
+      aria-hidden="true"
+      class="fa fa-heart"
+      data-testid="favorite-button"
+    />
+  </button>
+</div>
+`;

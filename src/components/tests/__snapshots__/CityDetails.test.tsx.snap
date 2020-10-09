@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CityDetails should match snapshot when city cannot be found 1`] = `
+<div>
+  <div
+    class="city-details-wrapper app"
+  >
+    **Link**
+    <p>
+      City not found
+    </p>
+    **Notes**
+  </div>
+</div>
+`;

@@ -7,10 +7,20 @@ import {
   SAVE_NOTES,
   DELETE_NOTE
 } from '../constants';
-import { FavoritesMap, WeatherInfo, NotesType } from '../types';
+
+import {
+  FavoritesMap,
+  WeatherInfo,
+  NotesType,
+  WeatherInfoActionTypes,
+  NotesActionType,
+  LoadingActionType,
+  FavoritesActionType
+} from '../types';
 import { saveFavorites, saveNotes } from '../helpers';
 
-export const weatherInfoReducer = (state: WeatherInfo[], action: any) => {
+
+export const weatherInfoReducer = (state: WeatherInfo[], action: WeatherInfoActionTypes) => {
   switch(action.type) {
     case REMOVE_WEATHER_INFO:
       const filteredInfo = state.filter((info: WeatherInfo) => {
@@ -26,7 +36,7 @@ export const weatherInfoReducer = (state: WeatherInfo[], action: any) => {
   }
 }
 
-export const favoritesReducer = (state: FavoritesMap, action: any) => {
+export const favoritesReducer = (state: FavoritesMap, action: FavoritesActionType) => {
   switch(action.type) {
     case ADD_FAVORITE:
       const newState = { ...state, ...action.favoriteItem };
@@ -35,7 +45,7 @@ export const favoritesReducer = (state: FavoritesMap, action: any) => {
 
     case REMOVE_FAVORITE:
       const stateCopy = {...state};
-      delete stateCopy[action.cityName];
+      delete stateCopy[action.cityName || ''];
       saveFavorites(stateCopy);
       return stateCopy;
 
@@ -44,7 +54,7 @@ export const favoritesReducer = (state: FavoritesMap, action: any) => {
   }
 }
 
-export const loadingReducer = (state: Boolean, action:any) => {
+export const loadingReducer = (state: Boolean, action: LoadingActionType) => {
   if(action.type === SET_LOADING) {
     return action.isLoading;
   }
@@ -52,7 +62,7 @@ export const loadingReducer = (state: Boolean, action:any) => {
   return state;
 }
 
-export const notesReducer = (state: NotesType, action: any ) => {
+export const notesReducer = (state: NotesType, action: NotesActionType ) => {
   switch(action.type) {
     case SAVE_NOTES:
       const newState = { ...state, ...action.notes };
@@ -61,7 +71,7 @@ export const notesReducer = (state: NotesType, action: any ) => {
 
     case DELETE_NOTE:
       const stateCopy = { ...state };
-      delete stateCopy[action.cityName];
+      delete stateCopy[action.cityName || ''];
       saveNotes(stateCopy);
       return stateCopy;
     default: 

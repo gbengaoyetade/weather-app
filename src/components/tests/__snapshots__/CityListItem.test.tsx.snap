@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CityListItem should match snapshot 1`] = `
+<div>
+  <li>
+    <div
+      class="city-info"
+    >
+      <span>
+        Beijing
+        ,
+        <span
+          class="bold-text"
+        >
+           
+          China
+        </span>
+      </span>
+      <div
+        class="aligned-flex"
+      >
+        <span
+          class="temperature"
+        >
+          23
+          ℃
+        </span>
+        <img
+          alt="clear sky"
+          src="https://openweathermap.org/img/wn/01d@2x.png"
+        />
+      </div>
+    </div>
+    <div
+      class=""
+    >
+      <button
+        class="app-button"
+        data-testid="delete-info"
+      >
+        <i
+          aria-hidden="true"
+          class="fa fa-trash"
+        />
+      </button>
+      <button
+        class="app-button"
+        style="color: rgb(0, 0, 0);"
+      >
+        <i
+          aria-hidden="true"
+          class="fa fa-heart-o"
+          data-testid="favorite-button"
+        />
+      </button>
+    </div>
+  </li>
+</div>
+`;

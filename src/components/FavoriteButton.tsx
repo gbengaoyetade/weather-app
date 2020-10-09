@@ -26,7 +26,7 @@ const FavoriteButton = (props: FavoriteProps) => {
     color = '#ec6e4d';
   }
 
-  const hanldeClick = () => {
+  const handleClick = () => {
     const cityName = cityDetails.name;
     const isOneOfLargestCities = largestCities.find((name) => name === cityName);
   
@@ -45,14 +45,14 @@ const FavoriteButton = (props: FavoriteProps) => {
   return (
     <button
       className="app-button"
-      onClick={hanldeClick}
+      onClick={handleClick}
       style={{color}}
     >
-      <i className={`fa ${iconName}`} aria-hidden="true"></i>
+      <i data-testid="favorite-button" className={`fa ${iconName}`} aria-hidden="true"></i>
     </button>
   )
 
 };
 
 
-export default FavoriteButton
+export default FavoriteButton;

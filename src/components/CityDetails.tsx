@@ -4,7 +4,10 @@ import {
   getDateFromTime,
   getIconURL,
   getLocalTime,
-  usePopulateStore
+  usePopulateStore,
+  getUserCurrentCity,
+  getCurrentSearchItem,
+  useOfflineIndicator
 } from '../helpers';
 import { AppContext } from '../store';
 import '../styles/cityDetails.scss';
@@ -13,23 +16,29 @@ import Notes from './Notes';
 
 const CityDetails = () => {
   const { state } = useContext(AppContext);
+
   usePopulateStore();
+  useOfflineIndicator();
 
   const { cityName } = useParams<{ cityName:string }>();
-  const userCurrentCity = JSON.parse(localStorage.getItem('userCurrentCity') || '{}');
+  const userCurrentCity = getUserCurrentCity();
+  const currentSearchItem = getCurrentSearchItem();
   
   let cityDetails : WeatherInfo | undefined = state.favorites[cityName];
-
 
   if (state.isLoading) {
     return <img src="/loader.gif"  alt="loading indicator"/>
   }
 
-  if (userCurrentCity?.data.name === cityName) {
+  if (userCurrentCity?.data?.name === cityName) {
     cityDetails = userCurrentCity;
   }
 
-  if(!cityDetails) {
+  if (!cityDetails && currentSearchItem?.data?.name) {
+    cityDetails = currentSearchItem;
+  }
+
+  if (!cityDetails) {
     cityDetails = state.weatherInfo.find((info) => {
       return info.data.name === cityName;
     })

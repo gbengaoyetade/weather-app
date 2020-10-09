@@ -2,17 +2,17 @@ export interface CityDetails {
   base: string
   clouds: { all: number }
   cod: number
-  coor: { lon: number, lat: number }
+  coord: { lon: number, lat: number }
   dt: number
   id: number
   main: CityMain
   name: string
-  rain: { [key: string]: number }
+  rain?: { [key: string]: number }
   sys: { type: number, id: number, country: CountryCode, sunrise: number, sunset: number }
   timezone: number
   visibility: number
-  weather: [{ id: number, main: string, description: string, icon: string }]
-  wind: { speed: number, deg: number, gust: number }
+  weather: { id: number, main: string, description: string, icon: string }[]
+  wind: { speed: number, deg: number, gust?: number }
 }
 
 export interface CityMain {
@@ -64,4 +64,27 @@ export interface FavoritesMap {
 
 export interface NotesType {
   [key: string]: string
+}
+
+export interface FavoritesActionType {
+  type:string
+  favoriteItem: FavoritesMap
+  cityName: string
+}
+
+export interface LoadingActionType {
+  type: string,
+  isLoading: Boolean
+}
+
+export interface NotesActionType {
+  type: string,
+  notes?: NotesType
+  cityName: string
+}
+
+export interface WeatherInfoActionTypes {
+  type: string
+  cityName?: string
+  weatherInfo: WeatherInfo[]
 }

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search should match snapshot 1`] = `
+<div>
+  <div
+    class="search-wrapper"
+  >
+    <form>
+      <input
+        aria-label="Search city weather information"
+        id="cities-search"
+        placeholder="Search cities"
+        type="search"
+        value=""
+      />
+      <button
+        data-testid="search-button"
+      >
+        <i
+          aria-hidden="true"
+          class="fa fa-search"
+        />
+      </button>
+    </form>
+  </div>
+  <div
+    class="search-result-wrapper"
+  >
+    
+  </div>
+</div>
+`;
