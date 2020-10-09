@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getCityFromAPI, getIconURL } from '../helpers';
+import { getCityFromAPI, getIconURL, saveCurrentSearchItem } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import { CityDetails } from '../types';
 import '../styles/search.scss';
@@ -23,17 +23,18 @@ const Search = () => {
     setIsLoading(true);
     setSearchResult(null);
 
-    const response = await getCityFromAPI({ q: searchInput })
+    const response = await getCityFromAPI({ q: searchInput });
     setIsLoading(false);
   
     if (response) {
-      localStorage.setItem('currentSearchItem', JSON.stringify(response))
+      saveCurrentSearchItem(response)
       setSearchResult(response.data)
     } else {
       setFetchError('Your search returned no results.');
     }
    
   }
+ 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const userInput = event.target.value;
@@ -88,12 +89,14 @@ const Search = () => {
         <input
           type="search"
           id="cities-search"
-          placeholder="Search cities "
+          placeholder="Search cities"
           value={searchInput}
           onChange={handleChange}
           aria-label="Search city weather information"
         />
-        <button><i className="fa fa-search" aria-hidden="true"></i></button>
+        <button data-testid="search-button">
+          <i className="fa fa-search" aria-hidden="true"></i>
+        </button>
       </form>
       
     </div>

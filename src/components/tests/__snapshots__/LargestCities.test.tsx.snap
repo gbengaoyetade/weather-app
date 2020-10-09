@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LargestCities should match snapshot when cities are empty 1`] = `
+<div>
+  <p
+    class="error"
+  >
+    No weather information to display.
+  </p>
+</div>
+`;
+
+exports[`LargestCities should match snapshot when cities are present 1`] = `
+<div>
+  <ul
+    class="city-list"
+  >
+    **CityListItem**
+  </ul>
+</div>
+`;

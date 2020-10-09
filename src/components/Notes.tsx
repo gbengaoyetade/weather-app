@@ -44,7 +44,7 @@ const Notes = (props: {cityName: string}) => {
     return (
       <>
         <form>
-          <textarea value={notes} onChange={handleCommentChange}></textarea>
+          <textarea data-testid="notes-input" value={notes} onChange={handleCommentChange}></textarea>
         </form>
           <button className="notes-button" onClick={handleSave}>Save</button>
           <button className="notes-button" onClick={handleCancelClick}>Cancel</button>

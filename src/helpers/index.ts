@@ -84,6 +84,10 @@ export const getCurrentSearchItem = () => {
   return JSON.parse(localStorage.getItem('currentSearchItem') || '{}');
 }
 
+export const saveCurrentSearchItem = (response: WeatherInfo) => {
+  localStorage.setItem('currentSearchItem', JSON.stringify(response))
+}
+
 const _getLargestCities = (cities: WeatherInfo[]) => {
   return cities.map((city) => city.data.name)
 }

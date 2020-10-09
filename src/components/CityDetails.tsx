@@ -23,16 +23,15 @@ const CityDetails = () => {
   
   let cityDetails : WeatherInfo | undefined = state.favorites[cityName];
 
-
   if (state.isLoading) {
     return <img src="/loader.gif"  alt="loading indicator"/>
   }
 
-  if (userCurrentCity?.data.name === cityName) {
+  if (userCurrentCity?.data?.name === cityName) {
     cityDetails = userCurrentCity;
   }
 
-  if (!cityDetails && currentSearchItem.data.name) {
+  if (!cityDetails && currentSearchItem?.data?.name) {
     cityDetails = currentSearchItem;
   }
 

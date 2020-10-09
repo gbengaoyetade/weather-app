@@ -8,7 +8,7 @@ interface LargestCitiesProps {
 
 const LargestCities = (props: LargestCitiesProps) => {
   const { cities } = props;
-  
+
   if (!cities.length){
     return (
       <p className="error">No weather information to display.</p>
