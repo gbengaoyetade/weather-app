@@ -4,7 +4,9 @@ import {
   getDateFromTime,
   getIconURL,
   getLocalTime,
-  usePopulateStore
+  usePopulateStore,
+  getUserCurrentCity,
+  getCurrentSearchItem,
 } from '../helpers';
 import { AppContext } from '../store';
 import '../styles/cityDetails.scss';
@@ -16,7 +18,8 @@ const CityDetails = () => {
   usePopulateStore();
 
   const { cityName } = useParams<{ cityName:string }>();
-  const userCurrentCity = JSON.parse(localStorage.getItem('userCurrentCity') || '{}');
+  const userCurrentCity = getUserCurrentCity();
+  const currentSearchItem = getCurrentSearchItem();
   
   let cityDetails : WeatherInfo | undefined = state.favorites[cityName];
 
@@ -29,7 +32,11 @@ const CityDetails = () => {
     cityDetails = userCurrentCity;
   }
 
-  if(!cityDetails) {
+  if (!cityDetails && currentSearchItem.data.name) {
+    cityDetails = currentSearchItem;
+  }
+
+  if (!cityDetails) {
     cityDetails = state.weatherInfo.find((info) => {
       return info.data.name === cityName;
     })

@@ -3,6 +3,7 @@ import { getCityFromAPI, getIconURL } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import { CityDetails } from '../types';
 import '../styles/search.scss';
+import { Link } from 'react-router-dom';
 
 
 const Search = () => {
@@ -13,6 +14,10 @@ const Search = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    if(!searchInput) {
+      return;
+    }
 
     setFetchError('');
     setIsLoading(true);
@@ -51,7 +56,7 @@ const Search = () => {
       return (
         <div className="search-result">
           <p className="search-title">
-            <span>{searchResult.name} Weather</span>
+            <Link to={`/${searchResult.name}/details`}>{searchResult.name} Weather</Link>
             <FavoriteButton cityDetails={searchResult} />
           </p>
           <div className="aligned-flex">

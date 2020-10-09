@@ -76,6 +76,14 @@ export const getNotes = () => {
   return JSON.parse(localStorage.getItem('notes') || '{}');
 }
 
+export const getUserCurrentCity = () => {
+  return JSON.parse(localStorage.getItem('userCurrentCity') || '{}');
+}
+
+export const getCurrentSearchItem = () => {
+  return JSON.parse(localStorage.getItem('currentSearchItem') || '{}');
+}
+
 const _getLargestCities = (cities: WeatherInfo[]) => {
   return cities.map((city) => city.data.name)
 }

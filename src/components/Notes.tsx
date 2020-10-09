@@ -48,10 +48,6 @@ const Notes = (props: {cityName: string}) => {
         </form>
           <button className="notes-button" onClick={handleSave}>Save</button>
           <button className="notes-button" onClick={handleCancelClick}>Cancel</button>
-          {
-            cityNotes ? <button className="notes-button" onClick={handleDelete}>Delete</button> : null
-          }
-          
       </>
     )
   }
@@ -62,6 +58,9 @@ const Notes = (props: {cityName: string}) => {
       <button className="notes-button" onClick={() => setNotesEditable(true)} >
         { cityNotes ? 'Edit' : 'Add Notes' }
       </button>
+      {
+        cityNotes ? <button className="notes-button" onClick={handleDelete}>Delete</button> : null
+      }
     </>
   )
 }
