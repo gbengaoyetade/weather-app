@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gbengaPS/weather-app.svg?branch=master)](https://travis-ci.org/gbengaPS/weather-app)
+[![Build Status](https://travis-ci.org/gbengaPS/weather-app.svg?branch=master)](https://travis-ci.org/gbengaPS/weather-app) [![Coverage Status](https://coveralls.io/repos/github/gbengaPS/weather-app/badge.svg?branch=master)](https://coveralls.io/github/gbengaPS/weather-app?branch=master)
 
 ![App Screenshot](/public/screenshot.png?raw=true)
 
