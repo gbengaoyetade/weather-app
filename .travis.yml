@@ -9,3 +9,6 @@ cache:
 script:
   - yarn run build
   - yarn test
+  - yarn coverage
+after_script: # Upload coverage reports 
+  - COVERALLS_REPO_TOKEN=i2pehWMTQwEzb2TaTKJqNpjf0jmk5hk4L npm run coveralls
