@@ -9,7 +9,6 @@ exports[`CityDetails should match snapshot when city cannot be found 1`] = `
     <p>
       City not found
     </p>
-    **Notes**
   </div>
 </div>
 `;
