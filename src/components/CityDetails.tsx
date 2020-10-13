@@ -13,6 +13,8 @@ import { AppContext } from '../store';
 import '../styles/cityDetails.scss';
 import { WeatherInfo } from '../types';
 import Notes from './Notes';
+import FavoriteButton from './FavoriteButton';
+import { countriesMap } from '../constants';
 
 const CityDetails = () => {
   const { state } = useContext(AppContext);
@@ -55,7 +57,8 @@ const CityDetails = () => {
       <div className="details-container">
         <div className="details-header">
           <p className="city-name">
-            {cityDetails.data.name}
+            {cityDetails.data.name}, {countriesMap[data.sys.country]}
+            <FavoriteButton cityDetails={data} />
           </p>
           <p>{getDateFromTime(data.sys.sunrise)}</p>
         </div>
