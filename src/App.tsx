@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import LargestCities from './components/LargestCities';
 import Search from './components/Search';
 import { getCityFromAPI, usePopulateStore, useOfflineIndicator } from './helpers';
@@ -23,7 +23,7 @@ const App = () => {
         if (response) {
           localStorage.setItem('userCurrentCity', JSON.stringify(response));
           localStorage.setItem('hasSeenCurrentCity', 'yes');
-          history.push(`${response?.data.name}/details`);
+          history.push('user/location');
         }
       }
     });
@@ -50,6 +50,7 @@ const App = () => {
 
   return (
     <div className="app">
+      <Link to="/user/location">My location</Link>
       <Search />
       <p><i className="fas fa-long-arrow-alt-left"></i></p>
       <LargestCities

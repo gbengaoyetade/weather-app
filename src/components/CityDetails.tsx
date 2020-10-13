@@ -1,49 +1,32 @@
 import React, { useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   getDateFromTime,
   getIconURL,
   getLocalTime,
   usePopulateStore,
-  getUserCurrentCity,
-  getCurrentSearchItem,
   useOfflineIndicator
 } from '../helpers';
 import { AppContext } from '../store';
 import '../styles/cityDetails.scss';
-import { WeatherInfo } from '../types';
+import { CityDetails as CityDetailsType } from '../types';
 import Notes from './Notes';
 import FavoriteButton from './FavoriteButton';
 import { countriesMap } from '../constants';
 
-const CityDetails = () => {
+interface CityDetailsProps {
+  cityDetails: CityDetailsType | undefined
+}
+
+const CityDetails = (props: CityDetailsProps) => {
   const { state } = useContext(AppContext);
+  const { cityDetails } = props;
 
   usePopulateStore();
   useOfflineIndicator();
 
-  const { cityName } = useParams<{ cityName:string }>();
-  const userCurrentCity = getUserCurrentCity();
-  const currentSearchItem = getCurrentSearchItem();
-  
-  let cityDetails : WeatherInfo | undefined = state.favorites[cityName];
-
   if (state.isLoading) {
     return <img src="/loader.gif"  alt="loading indicator"/>
-  }
-
-  if (userCurrentCity?.data?.name === cityName) {
-    cityDetails = userCurrentCity;
-  }
-
-  if (!cityDetails && currentSearchItem?.data?.name === cityName) {
-    cityDetails = currentSearchItem;
-  }
-
-  if (!cityDetails) {
-    cityDetails = state.weatherInfo.find((info) => {
-      return info.data.name === cityName;
-    })
   }
 
   const getCityDetails = () => {
@@ -51,42 +34,41 @@ const CityDetails = () => {
       return <p>City not found</p>;
     }
 
-    const { data } = cityDetails;
-    const weatherDescription = data.weather[0].description;
+    const weatherDescription = cityDetails.weather[0].description;
     return (
       <div className="details-container">
         <div className="details-header">
           <p className="city-name">
-            {cityDetails.data.name}, {countriesMap[data.sys.country]}
-            <FavoriteButton cityDetails={data} />
+            {cityDetails.name}, {countriesMap[cityDetails.sys.country]}
+            <FavoriteButton cityDetails={cityDetails} />
           </p>
-          <p>{getDateFromTime(data.sys.sunrise)}</p>
+          <p>{getDateFromTime(cityDetails.sys.sunrise)}</p>
         </div>
         <div className="city-details-card">
           <div className="space-between">
             <div className="vertical-align">
-              <p className="details-temp">{Math.floor(data.main.temp)}&#730;</p>
-              <p>Feels like: {Math.floor(data.main.feels_like)}&#730;</p>
+              <p className="details-temp">{Math.floor(cityDetails.main.temp)}&#730;</p>
+              <p>Feels like: {Math.floor(cityDetails.main.feels_like)}&#730;</p>
             </div>
 
             <div className="vertical-align">
-              <img src={getIconURL(data.weather[0].icon)} alt={weatherDescription} />
+              <img src={getIconURL(cityDetails.weather[0].icon)} alt={weatherDescription} />
               <p>{weatherDescription}</p>
             </div>
           </div>
           <div className="space-between">
-            <p>Sunrise: {getLocalTime(data.sys.sunrise, data.timezone)} AM</p>
-            <p>Sunset: {getLocalTime(data.sys.sunset, data.timezone)} PM</p>
+            <p>Sunrise: {getLocalTime(cityDetails.sys.sunrise, cityDetails.timezone)} AM</p>
+            <p>Sunset: {getLocalTime(cityDetails.sys.sunset, cityDetails.timezone)} PM</p>
           </div>
         </div>
 
         <ul className="details-list">
-          <li><span>Max Temp:</span> <span className="bold">{data.main.temp_max}&#730;</span></li>
-          <li><span>Min Temp:</span> <span className="bold">{data.main.temp_min}&#730;</span></li>
-          <li><span>Humidity:</span> <span className="bold">{data.main.humidity}%</span></li>
-          <li><span>Pressure:</span> <span className="bold">{data.main.pressure} hPa</span></li>
-          <li><span>Wind Speed: </span> <span className="bold">{data.wind.speed} m/s</span></li>
-          <li><span>Wind Deg:</span> <span className="bold">{data.wind.deg}&#730;</span></li>
+          <li><span>Max Temp:</span> <span className="bold">{cityDetails.main.temp_max}&#730;</span></li>
+          <li><span>Min Temp:</span> <span className="bold">{cityDetails.main.temp_min}&#730;</span></li>
+          <li><span>Humidity:</span> <span className="bold">{cityDetails.main.humidity}%</span></li>
+          <li><span>Pressure:</span> <span className="bold">{cityDetails.main.pressure} hPa</span></li>
+          <li><span>Wind Speed: </span> <span className="bold">{cityDetails.wind.speed} m/s</span></li>
+          <li><span>Wind Deg:</span> <span className="bold">{cityDetails.wind.deg}&#730;</span></li>
         </ul>
       </div>
     )
@@ -96,7 +78,7 @@ const CityDetails = () => {
     <div className="city-details-wrapper app">
       <Link to="/">Go back</Link>
       {getCityDetails()}
-      <Notes cityName={cityName} />
+      <Notes cityName={cityDetails?.name || ''} />
     </div>
   )
 };

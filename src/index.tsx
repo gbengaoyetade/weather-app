@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import CityDetails from './components/CityDetails';
+import CityDetailsPage from './components/CityDetailsPage';
+import UserLocation from './components/UserLocation';
 import NotFound from './components/NotFound';
 import { AppProvider } from './store'
 
@@ -16,7 +17,10 @@ ReactDOM.render(
             <App />
           </Route>
           <Route path="/:cityName/details">
-            <CityDetails />
+            <CityDetailsPage />
+          </Route>
+          <Route path="/user/location">
+            <UserLocation />
           </Route>
           <Route path="*">
             <NotFound />
