@@ -34,7 +34,7 @@ const CityDetails = () => {
     cityDetails = userCurrentCity;
   }
 
-  if (!cityDetails && currentSearchItem?.data?.name) {
+  if (!cityDetails && currentSearchItem?.data?.name === cityName) {
     cityDetails = currentSearchItem;
   }
 
