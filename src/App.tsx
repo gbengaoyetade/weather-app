@@ -58,7 +58,7 @@ const App = () => {
   return (
     <div className="app">
       {
-        userCurrentCity &&
+        userCurrentCity.data &&
         <p className="no-margin"><Link to="/user/location">My location</Link></p>
       }
      
