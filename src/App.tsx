@@ -2,7 +2,12 @@ import React, { useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import LargestCities from './components/LargestCities';
 import Search from './components/Search';
-import { getCityFromAPI, usePopulateStore, useOfflineIndicator } from './helpers';
+import {
+  getCityFromAPI,
+  usePopulateStore,
+  useOfflineIndicator,
+  getUserCurrentCity
+} from './helpers';
 import { AppContext } from './store';
 import { ADD_FAVORITE } from './constants';
 import './styles/app.scss';
@@ -48,9 +53,16 @@ const App = () => {
 
   const largestCitiesInfo = [...favoritesArray, ...sortedWeatherInfo];
 
+  const userCurrentCity = getUserCurrentCity();
+
   return (
     <div className="app">
-      <Link to="/user/location">My location</Link>
+      {
+        userCurrentCity &&
+        <p className="no-margin"><Link to="/user/location">My location</Link></p>
+      }
+     
+    
       <Search />
       <p><i className="fas fa-long-arrow-alt-left"></i></p>
       <LargestCities

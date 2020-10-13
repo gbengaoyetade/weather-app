@@ -5,6 +5,11 @@ exports[`App should match snapshot 1`] = `
   <div
     class="app"
   >
+    <a
+      href="/user/location"
+    >
+      My location
+    </a>
     <div
       class="search-wrapper"
     >

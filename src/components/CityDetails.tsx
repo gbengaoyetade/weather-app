@@ -70,6 +70,8 @@ const CityDetails = (props: CityDetailsProps) => {
           <li><span>Wind Speed: </span> <span className="bold">{cityDetails.wind.speed} m/s</span></li>
           <li><span>Wind Deg:</span> <span className="bold">{cityDetails.wind.deg}&#730;</span></li>
         </ul>
+
+        <Notes cityName={cityDetails?.name || ''} />
       </div>
     )
   }
@@ -78,7 +80,6 @@ const CityDetails = (props: CityDetailsProps) => {
     <div className="city-details-wrapper app">
       <Link to="/">Go back</Link>
       {getCityDetails()}
-      <Notes cityName={cityDetails?.name || ''} />
     </div>
   )
 };

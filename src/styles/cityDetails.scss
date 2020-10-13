@@ -1,3 +1,5 @@
+$info-color: #2595ce;
+
 .city-details-wrapper {
   width: 100%;
   margin-bottom: 20px;
@@ -10,11 +12,16 @@
     padding: 8px;
     resize: none;
     border-radius: 5px;
-    border: none;
+    border: 1px solid #ddd;
     background: #fff;
     font-size: 1.2rem;
-    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
     margin-bottom: 5px;
+
+    &:focus {
+      outline: 1px solid $info-color;
+      box-shadow: 0 0 0 2px $info-color;
+      border-radius: 3px;
+    }
   }
 }
 
@@ -94,14 +101,18 @@
   align-items: center;
 }
 
+.notes-wrapper {
+  max-width: 400px;
+  width: 100%;
+}
+
 .notes-button {
-  margin-right: 5px;
-  background: #d0d0d0;
   color: #000;
   border: 1px solid transparent;
   height: 30px;
   border-radius: 5px;
   margin-bottom: 10px;
+  color: #fff;
 
   &:hover {
     border: 1px solid #888;
@@ -109,14 +120,31 @@
 }
 
 .notes {
-  max-width: fit-content;
+  width: 100%;
   color: #222;
-  border-radius: 8px;
   white-space: pre-wrap;
-  background: #eee;
-  padding: 10px;
+  padding-left: 10px;
+  border-left: 3px solid #dedede;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .bold {
    font-weight: 800;
+}
+
+.warning {
+  background: orange;
+}
+
+.danger { 
+  background: #d64242;
+}
+
+.info {
+   background: $info-color;
+   margin-right: 5px;
 }

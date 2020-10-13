@@ -82,7 +82,6 @@ a:hover {
   background: transparent;
   border: none;
   height: 40px;
-  width: 35px;
   font-size: 1.2rem;
   color: inherit;
   cursor: pointer;
@@ -105,4 +104,8 @@ a:hover {
 .space-between {
   display: flex;
   justify-content: space-between;
+}
+
+.no-margin {
+  margin: 2px;
 }
