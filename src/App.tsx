@@ -59,7 +59,7 @@ const App = () => {
     <div className="app">
       {
         userCurrentCity.data &&
-        <p className="no-margin"><Link to="/user/location">My location</Link></p>
+        <p className="my-location"><Link to="/user/location">My location</Link></p>
       }
      
     
