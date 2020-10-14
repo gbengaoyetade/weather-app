@@ -2,20 +2,28 @@
 
 exports[`Notes should match snapshot 1`] = `
 <div>
-  <p
-    class="notes"
+  <div
+    class="notes-wrapper"
   >
-    hello world
-  </p>
-  <button
-    class="notes-button"
-  >
-    Edit
-  </button>
-  <button
-    class="notes-button"
-  >
-    Delete
-  </button>
+    <p
+      class="notes"
+    >
+      hello world
+    </p>
+    <div
+      class="action-buttons"
+    >
+      <button
+        class="notes-button info"
+      >
+        Edit
+      </button>
+      <button
+        class="notes-button danger"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
 </div>
 `;

@@ -42,26 +42,36 @@ const Notes = (props: {cityName: string}) => {
 
   if (notesEditable) {
     return (
-      <>
+      <div className="notes-wrapper">
         <form>
-          <textarea data-testid="notes-input" value={notes} onChange={handleCommentChange}></textarea>
+          <textarea
+            data-testid="notes-input"
+            value={notes}
+            onChange={handleCommentChange}
+            placeholder="Add notes"
+          >
+          </textarea>
         </form>
-          <button className="notes-button" onClick={handleSave}>Save</button>
-          <button className="notes-button" onClick={handleCancelClick}>Cancel</button>
-      </>
+        <div className="action-buttons">
+          <button className="notes-button info" onClick={handleSave}>Save</button>
+          <button className="notes-button warning" onClick={handleCancelClick}>Cancel</button>
+        </div>
+      </div>
     )
   }
 
   return (
-    <>
-      { cityNotes ?  <p className="notes">{cityNotes}</p> : null }
-      <button className="notes-button" onClick={() => setNotesEditable(true)} >
-        { cityNotes ? 'Edit' : 'Add Notes' }
-      </button>
-      {
-        cityNotes ? <button className="notes-button" onClick={handleDelete}>Delete</button> : null
-      }
-    </>
+    <div className="notes-wrapper">
+      { cityNotes ? <p className="notes">{cityNotes}</p> : null}
+      <div className="action-buttons">
+        <button className="notes-button info" onClick={() => setNotesEditable(true)} >
+          { cityNotes ? 'Edit' : 'Add Notes' }
+        </button>
+        {
+          cityNotes ? <button className="notes-button danger" onClick={handleDelete}>Delete</button> : null
+        }
+      </div>
+    </div>
   )
 }
 
