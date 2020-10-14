@@ -4,7 +4,6 @@ import {
   getDateFromTime,
   getIconURL,
   getLocalTime,
-  usePopulateStore,
   useOfflineIndicator
 } from '../helpers';
 import { AppContext } from '../store';
@@ -22,7 +21,6 @@ const CityDetails = (props: CityDetailsProps) => {
   const { state } = useContext(AppContext);
   const { cityDetails } = props;
 
-  usePopulateStore();
   useOfflineIndicator();
 
   if (state.isLoading) {

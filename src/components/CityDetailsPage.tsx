@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useParams, } from 'react-router-dom';
 import CityDetails from './CityDetails';
-import { getCurrentSearchItem } from '../helpers';
+import { getCurrentSearchItem, usePopulateStore } from '../helpers';
 import { AppContext } from '../store';
 import { WeatherInfo } from '../types';
 
@@ -10,6 +10,8 @@ const CityDetailsPage = () => {
   const { state } = useContext(AppContext);
   const { cityName } = useParams<{ cityName:string }>();
   const currentSearchItem = getCurrentSearchItem();
+
+   usePopulateStore();
   
   let cityDetails : WeatherInfo | undefined = state.favorites[cityName];
 
