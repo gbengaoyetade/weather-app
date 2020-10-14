@@ -1,9 +1,11 @@
 import React from 'react';
 import CityDetails from './CityDetails';
-import { getUserCurrentCity } from '../helpers';
+import { getUserCurrentCity, usePopulateStore } from '../helpers';
 
 
 const UserLocation = () => {
+  usePopulateStore();
+
   const userCurrentCity = getUserCurrentCity();
 
   return <CityDetails cityDetails={userCurrentCity.data} />
